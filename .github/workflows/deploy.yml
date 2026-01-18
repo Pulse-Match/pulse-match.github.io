@@ -18,4 +18,4 @@ jobs:
         with:
           args: deploy
         env:
-          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GLID_SPORTS_APP }}
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GLID_APP }}

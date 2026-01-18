@@ -1,0 +1,24 @@
+{
+  "name": "landing-page",
+  "version": "1.0.0",
+  "description": "Marketing landing page for Glid - a \"Tinder for Sports\" platform.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pulse-Match/pulse-match.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Pulse-Match/pulse-match.github.io/issues"
+  },
+  "homepage": "https://github.com/Pulse-Match/pulse-match.github.io#readme",
+  "devDependencies": {
+    "firebase-tools": "^15.3.1"
+  }
+}

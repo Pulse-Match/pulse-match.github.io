@@ -8,3 +8,6 @@
 
 # JJ
 .jj/
+node_modules/
+firebase-debug.log
+.firebase/
