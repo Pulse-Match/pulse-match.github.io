@@ -4,7 +4,8 @@
   "description": "Marketing landing page for Glid - a \"Tinder for Sports\" platform.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "firebase deploy"
   },
   "repository": {
     "type": "git",
