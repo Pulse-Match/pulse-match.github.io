@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>glid. | Sport, Simplified.</title>
+    <meta name="description" content="Find sports sessions near you, match with players at your level, and get moving. Northern Virginia's on-demand court hub.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -18,6 +19,31 @@
                         volt: '#CEFF00',
                         cobalt: '#2E5BFF',
                         obsidian: '#0A0A0A',
+                        surface: '#1A1A1A',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                        'slide-up': 'slide-up 0.6s ease-out',
+                        'fade-in': 'fade-in 0.8s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(206, 255, 0, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px rgba(206, 255, 0, 0.6)' },
+                        },
+                        'slide-up': {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
                     }
                 }
             }
@@ -41,81 +67,204 @@
         .glid-logo { font-style: italic; font-weight: 900; letter-spacing: -1.5px; text-transform: lowercase; }
         .glid-logo span { color: #CEFF00; }
         .glass { backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); }
-        .dark .glass { background: rgba(26, 26, 26, 0.7); border-color: rgba(255,255,255,0.05); }
-        .glass { background: rgba(255, 255, 255, 0.75); border-color: rgba(0,0,0,0.05); }
+        .dark .glass { background: rgba(26, 26, 26, 0.8); border-color: rgba(255,255,255,0.05); }
+        .glass { background: rgba(255, 255, 255, 0.8); border-color: rgba(0,0,0,0.05); }
         .gradient-text {
-            background: linear-gradient(90deg, #CEFF00 0%, #2E5BFF 100%);
+            background: linear-gradient(135deg, #CEFF00 0%, #2E5BFF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .iphone-shadow { box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25); }
-        .dark .iphone-shadow { box-shadow: 0 50px 100px -20px rgba(206, 255, 0, 0.1); }
+        .gradient-border {
+            position: relative;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #CEFF00, #2E5BFF);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        .iphone-shadow {
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1);
+        }
+        .dark .iphone-shadow {
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), 0 0 60px rgba(206, 255, 0, 0.1);
+        }
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .dark .glow-orb { opacity: 0.3; }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+        }
+        .dark .stat-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 30s linear infinite;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-white antialiased">
+<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-white antialiased overflow-x-hidden">
 
+    <!-- Background orbs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="glow-orb w-[600px] h-[600px] bg-volt -top-48 -right-48"></div>
+        <div class="glow-orb w-[400px] h-[400px] bg-cobalt top-1/2 -left-48"></div>
+        <div class="glow-orb w-[300px] h-[300px] bg-volt bottom-0 right-1/4"></div>
+    </div>
+
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 glass">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="glid-logo text-3xl">glid<span>.</span></a>
             <div class="flex items-center gap-4 md:gap-8">
                 <div class="hidden md:flex gap-8 text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">
-                    <a href="#how-it-works" class="hover:text-black dark:hover:text-white transition">How it Works</a>
-                    <a href="#sports" class="hover:text-black dark:hover:text-white transition">Sports</a>
-                    <a href="#experience" class="hover:text-black dark:hover:text-white transition">The Edge</a>
+                    <a href="#how-it-works" class="hover:text-black dark:hover:text-volt transition">How it Works</a>
+                    <a href="#sports" class="hover:text-black dark:hover:text-volt transition">Sports</a>
+                    <a href="#experience" class="hover:text-black dark:hover:text-volt transition">The Edge</a>
                 </div>
                 <button onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-200/50 dark:bg-white/5 hover:scale-110 transition active:scale-95">
                     <svg class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg class="w-5 h-5 hidden dark:block text-volt" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
                 </button>
-                <a href="#download" class="hidden sm:block bg-slate-900 text-white dark:bg-volt dark:text-black px-6 py-2 rounded-full text-xs font-black uppercase tracking-wider hover:opacity-90 transition">Join Beta</a>
+                <a href="#download" class="hidden sm:block bg-slate-900 text-white dark:bg-volt dark:text-black px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider hover:scale-105 transition shadow-lg">Join Beta</a>
             </div>
         </div>
     </nav>
 
-    <section class="pt-40 pb-20 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-            <div class="text-center lg:text-left">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 mb-8">
+    <!-- Hero Section -->
+    <section class="relative pt-32 md:pt-40 pb-20 px-6 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center w-full">
+            <div class="text-center lg:text-left animate-slide-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 mb-8 bg-white/50 dark:bg-white/5">
                     <span class="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
-                    <span class="text-[10px] font-black uppercase tracking-widest opacity-60">Northern Virginia's On-Demand Court Hub</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest opacity-70">Northern Virginia Beta Now Live</span>
                 </div>
-                <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter mb-8 uppercase italic">
-                    LESS <span class="text-slate-300 dark:text-white/10">TALK.</span><br>
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-8 uppercase italic">
+                    LESS <span class="text-slate-300 dark:text-white/20">TALK.</span><br>
                     MORE <span class="gradient-text">GAME.</span>
                 </h1>
                 <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
-                    Stop the endless group chat scrolling. Swipe on sports sessions happening right now near you, meet your partner, and get moving.
+                    Stop the endless group chat scrolling. Swipe on sports sessions happening <span class="text-black dark:text-white font-semibold">right now</span> near you, match with players at your level, and get moving.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <button class="bg-black text-white dark:bg-white dark:text-black px-10 py-5 rounded-2xl font-black uppercase text-sm shadow-xl hover:-translate-y-1 transition">Find a Game</button>
-                    <button class="px-10 py-5 rounded-2xl border-2 border-slate-200 dark:border-white/10 font-bold uppercase text-sm hover:bg-slate-100 dark:hover:bg-white/5 transition">Post a Session</button>
+                    <button class="group bg-black text-white dark:bg-volt dark:text-black px-10 py-5 rounded-2xl font-black uppercase text-sm shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all flex items-center justify-center gap-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                        Download for iOS
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                    <button class="px-10 py-5 rounded-2xl border-2 border-slate-200 dark:border-white/10 font-bold uppercase text-sm hover:bg-slate-100 dark:hover:bg-white/5 transition flex items-center justify-center gap-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                        Get for Android
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-12 pt-8 border-t border-slate-200 dark:border-white/10 grid grid-cols-3 gap-6">
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-volt">500+</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-400 mt-1">Beta Users</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-volt">1.2K</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-400 mt-1">Sessions Created</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-4xl font-black text-volt">98%</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-400 mt-1">Match Rate</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="relative flex justify-center lg:justify-end">
-                <div class="w-[340px] h-[700px] bg-white dark:bg-black border-[12px] border-white dark:border-[#1A1A1A] rounded-[54px] iphone-shadow overflow-hidden relative">
-                    <div class="h-full flex flex-col bg-slate-100 dark:bg-obsidian">
-                        <div class="pt-12 px-6 flex justify-between items-center bg-white dark:bg-transparent">
-                            <span class="glid-logo text-xl">glid<span>.</span></span>
-                            <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center"><svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                        </div>
-                        <div class="flex-1 p-4">
-                            <div class="h-full rounded-[36px] bg-cover bg-center relative overflow-hidden shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=800');">
-                                <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
-                                <div class="absolute bottom-4 left-4 right-4 p-6 glass rounded-3xl">
-                                    <h3 class="text-2xl font-black italic uppercase text-white">Soccer</h3>
-                                    <p class="text-white/70 text-[10px] font-bold uppercase tracking-widest mb-4">Hanson Park, Ashburn</p>
-                                    <div class="grid grid-cols-2 gap-2 text-[10px] font-bold text-slate-300">
-                                        <div class="flex items-center gap-2"><span>🕒</span> 7:45 PM</div>
-                                        <div class="flex items-center gap-2"><span>📍</span> 2.5 KM</div>
+            <!-- iPhone Mockup -->
+            <div class="relative flex justify-center lg:justify-end animate-fade-in">
+                <div class="animate-float">
+                    <div class="w-[320px] md:w-[360px] h-[650px] md:h-[720px] bg-white dark:bg-black border-[10px] border-slate-200 dark:border-surface rounded-[50px] iphone-shadow overflow-hidden relative">
+                        <!-- Dynamic Island -->
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-10"></div>
+
+                        <div class="h-full flex flex-col bg-slate-100 dark:bg-obsidian">
+                            <div class="pt-14 px-5 flex justify-between items-center bg-white/80 dark:bg-transparent backdrop-blur-sm">
+                                <span class="glid-logo text-xl">glid<span>.</span></span>
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
                                     </div>
                                 </div>
                             </div>
+                            <div class="flex-1 p-4">
+                                <div class="h-full rounded-[32px] bg-cover bg-center relative overflow-hidden shadow-2xl" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=800');">
+                                    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/90"></div>
+
+                                    <!-- Top badge -->
+                                    <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-white">
+                                        <span class="text-volt">Live</span> Now
+                                    </div>
+
+                                    <!-- Card content -->
+                                    <div class="absolute bottom-4 left-4 right-4 p-5 glass rounded-3xl">
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <span class="text-2xl">&#9917;</span>
+                                            <h3 class="text-xl font-black italic uppercase text-white">Soccer</h3>
+                                        </div>
+                                        <p class="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-4">Hanson Park, Ashburn</p>
+                                        <div class="grid grid-cols-3 gap-2 text-[10px] font-bold text-white/80">
+                                            <div class="flex items-center gap-1.5 bg-white/10 rounded-lg px-2 py-1.5">
+                                                <span>&#128337;</span> 7:45 PM
+                                            </div>
+                                            <div class="flex items-center gap-1.5 bg-white/10 rounded-lg px-2 py-1.5">
+                                                <span>&#128205;</span> 2.5 km
+                                            </div>
+                                            <div class="flex items-center gap-1.5 bg-volt/20 text-volt rounded-lg px-2 py-1.5">
+                                                <span>&#128200;</span> 3.5
+                                            </div>
+                                        </div>
+                                        <div class="mt-4 pt-3 border-t border-white/10 flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-volt flex items-center justify-center text-xs font-bold text-black">JM</div>
+                                            <div>
+                                                <div class="text-[10px] text-white/50 uppercase tracking-wider">Hosted by</div>
+                                                <div class="text-sm font-semibold text-white">Jake M.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-around items-center bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
+                                <div class="w-14 h-14 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-300 dark:text-white/30 text-xl hover:scale-110 hover:border-red-400 hover:text-red-400 transition cursor-pointer">&#10005;</div>
+                                <div class="w-16 h-16 rounded-full bg-volt flex items-center justify-center text-black font-black text-2xl shadow-lg shadow-volt/30 hover:scale-110 transition cursor-pointer animate-pulse-glow">+</div>
+                                <div class="w-14 h-14 rounded-full border-2 border-slate-200 dark:border-volt/50 flex items-center justify-center text-volt text-xl hover:scale-110 hover:bg-volt/10 transition cursor-pointer">&#9829;</div>
+                            </div>
                         </div>
-                        <div class="p-6 flex justify-around items-center bg-white dark:bg-transparent">
-                            <div class="w-12 h-12 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-300">✕</div>
-                            <div class="w-14 h-14 rounded-full bg-volt flex items-center justify-center text-black font-black">＋</div>
-                            <div class="w-12 h-12 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center text-volt">♥</div>
+                    </div>
+                </div>
+
+                <!-- Floating notification -->
+                <div class="absolute -left-4 md:left-0 top-1/4 glass rounded-2xl p-4 shadow-xl animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-volt flex items-center justify-center text-lg">&#127934;</div>
+                        <div>
+                            <div class="text-xs font-bold">New Match!</div>
+                            <div class="text-[10px] text-slate-500 dark:text-slate-400">Tennis @ 6PM</div>
                         </div>
                     </div>
                 </div>
@@ -123,90 +272,301 @@
         </div>
     </section>
 
-    <section id="how-it-works" class="py-24 bg-slate-100 dark:bg-[#0A0A0A]">
+    <!-- Sports Marquee -->
+    <section class="py-8 border-y border-slate-100 dark:border-white/5 overflow-hidden bg-white/50 dark:bg-surface/50">
+        <div class="flex whitespace-nowrap marquee-track">
+            <div class="flex gap-8 px-4">
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Tennis</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Soccer</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Basketball</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Volleyball</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Pickleball</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Badminton</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+            </div>
+            <div class="flex gap-8 px-4">
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Tennis</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Soccer</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Basketball</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Volleyball</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Pickleball</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+                <span class="text-4xl md:text-5xl font-black uppercase italic text-slate-200 dark:text-white/5">Badminton</span>
+                <span class="text-volt text-4xl">&#8226;</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 md:py-32 bg-white dark:bg-surface/30">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-black uppercase italic italic">How to <span class="volt-text">Glid.</span></h2>
-                <p class="text-slate-500 mt-4 font-medium uppercase tracking-widest text-xs">Matching in Seconds, Playing in Minutes</p>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 mb-6 bg-white/50 dark:bg-white/5">
+                    <span class="text-[10px] font-black uppercase tracking-widest opacity-70">Simple as 1-2-3</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic">How to <span class="gradient-text">Glid.</span></h2>
+                <p class="text-slate-500 mt-4 font-medium max-w-xl mx-auto">From opening the app to stepping on the court in under 5 minutes</p>
             </div>
-            <div class="grid md:grid-cols-3 gap-12 text-center">
-                <div>
-                    <div class="w-16 h-16 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm"><span class="text-3xl">📱</span></div>
-                    <h3 class="font-black uppercase italic mb-2">1. Browse Sessions</h3>
-                    <p class="text-slate-500 text-sm">See open games at your favorite parks. No scrolling through profiles—just sessions that fit your schedule.</p>
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-volt/20 to-cobalt/20 rounded-3xl opacity-0 group-hover:opacity-100 transition blur-xl"></div>
+                    <div class="relative p-8 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 text-center hover:-translate-y-2 transition-all">
+                        <div class="w-20 h-20 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg text-4xl">&#128241;</div>
+                        <div class="text-volt font-black text-sm mb-2">Step 01</div>
+                        <h3 class="font-black uppercase italic text-xl mb-3">Browse Sessions</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">See open games at parks near you. Filter by sport, skill level, and time. No endless scrolling through profiles.</p>
+                    </div>
                 </div>
-                <div>
-                    <div class="w-16 h-16 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm"><span class="text-3xl">🤝</span></div>
-                    <h3 class="font-black uppercase italic mb-2">2. Swipe to Match</h3>
-                    <p class="text-slate-500 text-sm">Swipe right on a game that matches your skill level. Once both sides accept, you're locked in.</p>
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-volt/20 to-cobalt/20 rounded-3xl opacity-0 group-hover:opacity-100 transition blur-xl"></div>
+                    <div class="relative p-8 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 text-center hover:-translate-y-2 transition-all">
+                        <div class="w-20 h-20 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg text-4xl">&#129309;</div>
+                        <div class="text-volt font-black text-sm mb-2">Step 02</div>
+                        <h3 class="font-black uppercase italic text-xl mb-3">Swipe & Match</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Swipe right on games that fit your schedule. When both sides accept, you're instantly matched and the chat opens.</p>
+                    </div>
                 </div>
-                <div>
-                    <div class="w-16 h-16 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm"><span class="text-3xl">🎾</span></div>
-                    <h3 class="font-black uppercase italic mb-2">3. Show up & Play</h3>
-                    <p class="text-slate-500 text-sm">The chat opens instantly. Coordinate the court number, grab your gear, and enjoy the match.</p>
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-volt/20 to-cobalt/20 rounded-3xl opacity-0 group-hover:opacity-100 transition blur-xl"></div>
+                    <div class="relative p-8 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 text-center hover:-translate-y-2 transition-all">
+                        <div class="w-20 h-20 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg text-4xl">&#127934;</div>
+                        <div class="text-volt font-black text-sm mb-2">Step 03</div>
+                        <h3 class="font-black uppercase italic text-xl mb-3">Show Up & Play</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Coordinate the court number, grab your gear, and enjoy the match. Rate your experience to improve future matches.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="sports" class="py-24">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-3xl font-black uppercase italic mb-12">Any Sport, <span class="text-cobalt dark:text-volt">Any Time.</span></h2>
-            <div class="flex flex-wrap justify-center gap-4">
-                <span class="px-6 py-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold uppercase tracking-widest">🎾 Tennis</span>
-                <span class="px-6 py-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold uppercase tracking-widest">⚽ Soccer</span>
-                <span class="px-6 py-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold uppercase tracking-widest">🏀 Basketball</span>
-                <span class="px-6 py-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold uppercase tracking-widest">🏐 Volleyball</span>
-                <span class="px-6 py-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold uppercase tracking-widest">🏸 Badminton</span>
-                <span class="px-6 py-3 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full text-xs font-bold uppercase tracking-widest">🏓 Pickleball</span>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="py-32 bg-white dark:bg-[#050505] border-t border-slate-100 dark:border-white/5">
+    <!-- Sports Grid -->
+    <section id="sports" class="py-24 md:py-32">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-4xl font-black italic uppercase mb-16 text-center text-center">Why <span class="text-cobalt dark:text-volt">Glid?</span></h2>
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic mb-4">Any Sport, <span class="text-cobalt dark:text-volt">Any Time.</span></h2>
+                <p class="text-slate-500 font-medium">More sports added every month based on community requests</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition">&#127934;</div>
+                    <div class="font-bold text-sm">Tennis</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition">&#9917;</div>
+                    <div class="font-bold text-sm">Soccer</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition">&#127936;</div>
+                    <div class="font-bold text-sm">Basketball</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition">&#127952;</div>
+                    <div class="font-bold text-sm">Volleyball</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition">&#127992;</div>
+                    <div class="font-bold text-sm">Badminton</div>
+                </div>
+                <div class="p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition">&#127955;</div>
+                    <div class="font-bold text-sm">Pickleball</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Glid -->
+    <section id="experience" class="py-24 md:py-32 bg-white dark:bg-surface/30 border-y border-slate-100 dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 mb-6 bg-white/50 dark:bg-white/5">
+                        <span class="text-[10px] font-black uppercase tracking-widest opacity-70">The Glid Advantage</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-black italic uppercase mb-6">Why <span class="gradient-text">Glid?</span></h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-lg leading-relaxed mb-8">
+                        Most apps match you with people. We match you with <strong class="text-black dark:text-white">games</strong>. If you're ready to play at 7 PM, we find you a court and a partner simultaneously.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-volt/10 flex items-center justify-center text-2xl flex-shrink-0">&#127919;</div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Session-First Matching</h3>
+                                <p class="text-slate-500 text-sm">Swipe on games, not profiles. Every match has a time, place, and purpose.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-cobalt/10 flex items-center justify-center text-2xl flex-shrink-0">&#9878;&#65039;</div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Skill-Based Parity</h3>
+                                <p class="text-slate-500 text-sm">Our rating system ensures every game is a genuine challenge, not a blowout.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-volt/10 flex items-center justify-center text-2xl flex-shrink-0">&#127758;</div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">Real-Time Status</h3>
+                                <p class="text-slate-500 text-sm">Live updates and venue check-ins mean you never show up to an empty court.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5">
+                                <div class="text-4xl font-black text-volt mb-2">4.9</div>
+                                <div class="text-sm font-bold mb-1">App Store Rating</div>
+                                <div class="flex text-volt text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            </div>
+                            <div class="p-6 rounded-3xl bg-volt text-black">
+                                <div class="text-4xl font-black mb-2">30s</div>
+                                <div class="text-sm font-bold">Average Match Time</div>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mt-8">
+                            <div class="p-6 rounded-3xl bg-cobalt text-white">
+                                <div class="text-4xl font-black mb-2">Zero</div>
+                                <div class="text-sm font-bold">Ghost Rate</div>
+                            </div>
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5">
+                                <div class="text-4xl font-black text-volt mb-2">24/7</div>
+                                <div class="text-sm font-bold">Games Available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic mb-4">What Players <span class="gradient-text">Say</span></h2>
+            </div>
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-10 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 transition-all hover:-translate-y-2">
-                    <div class="text-4xl mb-6">🎯</div>
-                    <h3 class="text-xl font-bold mb-4 italic uppercase italic">Action Focused</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Most apps match you with people. We match you with <strong>games</strong>. If you’re ready to play at 7 PM, we find you a court and a partner simultaneously.</p>
+                <div class="p-8 rounded-3xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5">
+                    <div class="flex gap-1 text-volt mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">"Finally, an app that gets it. I used to spend 30 mins coordinating a tennis match. Now it's literally swipe, match, play."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-volt flex items-center justify-center font-bold text-black">SC</div>
+                        <div>
+                            <div class="font-bold text-sm">Sarah C.</div>
+                            <div class="text-xs text-slate-400">Tennis Player, Ashburn</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-10 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 transition-all hover:-translate-y-2">
-                    <div class="text-4xl mb-6">⚖️</div>
-                    <h3 class="text-xl font-bold mb-4 italic uppercase italic">Skill Parity</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Tired of playing matches that are too easy or frustratingly hard? Our rating system ensures every game is a genuine challenge.</p>
+                <div class="p-8 rounded-3xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5">
+                    <div class="flex gap-1 text-volt mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">"The skill matching is insane. Every pickup game I've joined through Glid has been competitive without being frustrating."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-cobalt flex items-center justify-center font-bold text-white">MK</div>
+                        <div>
+                            <div class="font-bold text-sm">Marcus K.</div>
+                            <div class="text-xs text-slate-400">Basketball, Reston</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-10 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 transition-all hover:-translate-y-2">
-                    <div class="text-4xl mb-6">🌍</div>
-                    <h3 class="text-xl font-bold mb-4 italic uppercase italic">No wasted trips</h3>
-                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Real-time status updates and venue check-ins mean you never drive to a park just to find the courts are occupied or your partner ghosted.</p>
+                <div class="p-8 rounded-3xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5">
+                    <div class="flex gap-1 text-volt mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">"I moved to NoVA not knowing anyone. Glid helped me find my soccer crew in my first week. Now we play every weekend."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-volt flex items-center justify-center font-bold text-black">JT</div>
+                        <div>
+                            <div class="font-bold text-sm">James T.</div>
+                            <div class="text-xs text-slate-400">Soccer, Leesburg</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="download" class="py-24 bg-volt text-black text-center">
-        <div class="max-w-3xl mx-auto px-6">
-            <h2 class="text-5xl font-black uppercase italic mb-6 leading-tight">Ready to Find Your Next Match?</h2>
-            <p class="text-black/70 font-bold uppercase tracking-widest text-sm mb-10">Northern Virginia Beta is now open.</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <button class="bg-black text-white px-10 py-5 rounded-2xl font-black uppercase text-sm shadow-xl hover:-translate-y-1 transition">Download for iOS</button>
-                <button class="bg-black text-white px-10 py-5 rounded-2xl font-black uppercase text-sm shadow-xl hover:-translate-y-1 transition">Download for Android</button>
+    <!-- CTA Section -->
+    <section id="download" class="py-24 md:py-32 bg-gradient-to-br from-volt via-volt to-lime-400 text-black relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-black rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-black rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic mb-6 leading-tight">Ready to Find Your<br>Next Match?</h2>
+            <p class="text-black/70 font-bold uppercase tracking-widest text-sm mb-10">Northern Virginia Beta is now open. Limited spots available.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="group bg-black text-white px-10 py-5 rounded-2xl font-black uppercase text-sm shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                    Download for iOS
+                </button>
+                <button class="bg-black text-white px-10 py-5 rounded-2xl font-black uppercase text-sm shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all flex items-center justify-center gap-3">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg>
+                    Download for Android
+                </button>
             </div>
+            <p class="mt-8 text-sm text-black/50 font-medium">Free to download. No credit card required.</p>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-obsidian">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <span class="glid-logo text-2xl">glid<span>.</span></span>
-            <div class="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                <a href="#" class="hover:text-black dark:hover:text-white transition">Privacy</a>
-                <a href="#" class="hover:text-black dark:hover:text-white transition">Terms</a>
-                <a href="#" class="hover:text-black dark:hover:text-white transition">Support</a>
+    <!-- Footer -->
+    <footer class="py-16 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-obsidian">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <span class="glid-logo text-3xl">glid<span>.</span></span>
+                    <p class="mt-4 text-slate-500 text-sm max-w-sm leading-relaxed">
+                        The fastest way to find and join sports sessions in your area. Session-first matching for athletes who want to play, not scroll.
+                    </p>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-volt hover:text-black transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-volt hover:text-black transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-volt hover:text-black transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold uppercase text-xs tracking-widest mb-4 text-slate-400">Product</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#how-it-works" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">How it Works</a></li>
+                        <li><a href="#sports" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Sports</a></li>
+                        <li><a href="#experience" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Features</a></li>
+                        <li><a href="#download" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Download</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold uppercase text-xs tracking-widest mb-4 text-slate-400">Legal</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Cookie Policy</a></li>
+                        <li><a href="#" class="text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white transition">Support</a></li>
+                    </ul>
+                </div>
             </div>
-            <p class="text-[10px] font-black text-slate-300 dark:text-white/10 tracking-widest uppercase">© 2026 GLID. ALL SYSTEMS NOMINAL.</p>
+            <div class="pt-8 border-t border-slate-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] font-bold text-slate-300 dark:text-white/20 tracking-widest uppercase">&copy; 2026 Glid. All systems nominal.</p>
+                <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                    <span class="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
+                    <span>All services operational</span>
+                </div>
+            </div>
         </div>
     </footer>
+
 </body>
 </html>
