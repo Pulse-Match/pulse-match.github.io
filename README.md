@@ -1,6 +1,6 @@
-# PulseMatch Landing Page
+# Glid Landing Page
 
-Marketing landing page for PulseMatch - a "Tinder for Sports" platform.
+Marketing landing page for Glid - a "Tinder for Sports" platform.
 
 ## Tech Stack
 
