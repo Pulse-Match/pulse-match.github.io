@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Be among the first to experience Glid. Find sports sessions near you, match with players at your level, and get moving." />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+	</head>
+	<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-white antialiased overflow-x-hidden font-sans">
+		<slot />
+        <script is:inline>
+            // Theme toggle logic
+            function applyTheme() {
+                const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.classList.toggle('dark', isDark);
+            }
+            // Expose globally for the toggle button
+            window.toggleTheme = function() {
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme();
+            }
+            applyTheme();
+        </script>
+	</body>
+</html>
+
+<style is:global>
+    /* Custom styles from legacy index.html */
+    .glid-logo { font-style: italic; font-weight: 900; letter-spacing: -1.5px; text-transform: lowercase; }
+    .glid-logo span { color: var(--color-volt); }
+    
+    .glass { backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); }
+    :global(.dark) .glass { background: rgba(26, 26, 26, 0.8); border-color: rgba(255,255,255,0.05); }
+    .glass { background: rgba(255, 255, 255, 0.8); border-color: rgba(0,0,0,0.05); }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, var(--color-volt) 0%, var(--color-cobalt) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .iphone-shadow {
+        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    :global(.dark) .iphone-shadow {
+        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), 0 0 60px rgba(206, 255, 0, 0.1);
+    }
+    
+    .glow-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    :global(.dark) .glow-orb { opacity: 0.3; }
+
+    /* Animations */
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+
+    @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(206, 255, 0, 0.3); }
+        50% { box-shadow: 0 0 40px rgba(206, 255, 0, 0.6); }
+    }
+    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+    @keyframes slide-up {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-slide-up { animation: slide-up 0.6s ease-out; }
+
+    @keyframes fade-in {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+    .animate-fade-in { animation: fade-in 0.8s ease-out; }
+</style>

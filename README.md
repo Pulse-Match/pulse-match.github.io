@@ -1,53 +1,43 @@
-# Glid Landing Page
+# Astro Starter Kit: Minimal
 
-Marketing landing page for Glid - a "Tinder for Sports" platform.
-
-## Tech Stack
-
-- Pure HTML/CSS (no build tools)
-- GitHub Pages hosting
-- GitHub Actions for CI/CD
-
-## Local Development
-
-```bash
-# Simple HTTP server
-python -m http.server 8000
-
-# Or use any static server
-npx serve
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-Then open http://localhost:8000
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## Deployment
+## 🚀 Project Structure
 
-Automatically deploys to GitHub Pages on push to `main` branch.
+Inside of your Astro project, you'll see the following folders and files:
 
-### Manual Setup
-
-1. Go to repository Settings > Pages
-2. Source: "GitHub Actions"
-3. Push to main branch
-
-## Structure
-
-```
-├── index.html      # Main landing page
-├── styles.css      # Styling
-├── favicon.svg     # Site icon
-└── .github/
-    └── workflows/
-        └── deploy.yml  # GitHub Pages deployment
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-## Customization
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-- **Colors**: Edit CSS variables in `:root` at top of `styles.css`
-- **Content**: Edit `index.html`
-- **Stats**: Update the hero stats numbers
-- **App Store Links**: Replace `#` with actual store links
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-## License
+Any static assets, like images, can be placed in the `public/` directory.
 
-Proprietary - All rights reserved
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

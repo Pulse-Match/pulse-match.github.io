@@ -1,0 +1,423 @@
+---
+import Layout from '../layouts/Layout.astro';
+import WaitlistForm from '../components/WaitlistForm';
+---
+
+<Layout title="glid. | Join the Waitlist">
+	<!-- Navigation -->
+    <nav class="fixed w-full z-50 glass">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="glid-logo text-3xl">glid<span>.</span></a>
+            <div class="flex items-center gap-4">
+                <button onclick="window.toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-200/50 dark:bg-white/5 hover:scale-110 transition active:scale-95">
+                    <svg class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block text-volt" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+                </button>
+                <span class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-[10px] font-black uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
+                    Coming Soon
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 md:pt-40 pb-20 px-6 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center w-full">
+            <div class="text-center lg:text-left animate-slide-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/10 mb-8 bg-white/50 dark:bg-white/5">
+                    <span class="w-2 h-2 rounded-full bg-volt animate-pulse"></span>
+                    <span class="text-[10px] font-black uppercase tracking-widest opacity-70">Be the First to Play</span>
+                </div>
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-8 uppercase italic">
+                    LESS <span class="text-slate-300 dark:text-white/20">TALK.</span><br>
+                    MORE <span class="gradient-text">GAME.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-500 dark:text-slate-400 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
+                    Stop the endless group chat scrolling. Swipe on sports sessions happening <span class="text-black dark:text-white font-semibold">right now</span> near you, match with players at your level, and get moving.
+                </p>
+
+                <!-- React Form Component -->
+                <WaitlistForm client:load />
+            </div>
+
+            <!-- iPhone Mockup with Swipe Animation -->
+            <div class="relative flex justify-center lg:justify-end animate-fade-in">
+                <div class="animate-float" id="iphoneMockup">
+                    <div class="w-[280px] md:w-[320px] h-[580px] md:h-[650px] bg-white dark:bg-black border-[10px] border-slate-200 dark:border-surface rounded-[50px] iphone-shadow overflow-hidden relative">
+                        <!-- Dynamic Island -->
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-10"></div>
+
+                        <div class="h-full flex flex-col bg-slate-100 dark:bg-obsidian">
+                            <div class="pt-14 px-5 flex justify-between items-center bg-white/80 dark:bg-transparent backdrop-blur-sm">
+                                <span class="glid-logo text-xl">glid<span>.</span></span>
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 p-4 relative">
+                                <!-- Match Popup -->
+                                <div class="match-popup" id="matchPopup">
+                                    <div class="match-emoji">🎉</div>
+                                    <div class="match-text">It's a Match!</div>
+                                    <p class="text-white/60 text-sm mt-2">You both want to play</p>
+                                </div>
+
+                                <!-- Card Stack -->
+                                <div class="card-stack" id="cardStack">
+                                    <!-- Cards injected via JS -->
+                                </div>
+                            </div>
+                            <div class="p-5 flex justify-around items-center bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
+                                <div id="passBtn" class="action-btn w-12 h-12 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-300 dark:text-white/30 text-xl cursor-pointer">✕</div>
+                                <div class="w-14 h-14 rounded-full bg-volt flex items-center justify-center text-black font-black text-2xl shadow-lg shadow-volt/30 animate-pulse-glow">+</div>
+                                <div id="likeBtn" class="action-btn w-12 h-12 rounded-full border-2 border-slate-200 dark:border-volt/50 flex items-center justify-center text-volt text-xl cursor-pointer">♥</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 md:py-32 bg-white dark:bg-surface/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic">How <span class="gradient-text">Glid</span> Works</h2>
+                <p class="text-slate-500 mt-4 font-medium max-w-xl mx-auto">From opening the app to stepping on the court</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-volt/20 to-cobalt/20 rounded-3xl opacity-0 group-hover:opacity-100 transition blur-xl"></div>
+                    <div class="relative p-8 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 text-center hover:-translate-y-2 transition-all">
+                        <div class="w-20 h-20 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg text-4xl">📱</div>
+                        <div class="text-volt font-black text-sm mb-2">Step 01</div>
+                        <h3 class="font-black uppercase italic text-xl mb-3">Browse Sessions</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">See open games at parks near you. Filter by sport, skill level, and time.</p>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-volt/20 to-cobalt/20 rounded-3xl opacity-0 group-hover:opacity-100 transition blur-xl"></div>
+                    <div class="relative p-8 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 text-center hover:-translate-y-2 transition-all">
+                        <div class="w-20 h-20 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg text-4xl">🤝</div>
+                        <div class="text-volt font-black text-sm mb-2">Step 02</div>
+                        <h3 class="font-black uppercase italic text-xl mb-3">Swipe & Match</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Swipe right on games that fit your schedule. Match instantly and start chatting.</p>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-volt/20 to-cobalt/20 rounded-3xl opacity-0 group-hover:opacity-100 transition blur-xl"></div>
+                    <div class="relative p-8 rounded-3xl bg-slate-50 dark:bg-obsidian border border-slate-100 dark:border-white/5 text-center hover:-translate-y-2 transition-all">
+                        <div class="w-20 h-20 bg-white dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg text-4xl">🎾</div>
+                        <div class="text-volt font-black text-sm mb-2">Step 03</div>
+                        <h3 class="font-black uppercase italic text-xl mb-3">Show Up & Play</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed">Grab your gear and enjoy the match. Rate your experience afterward.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sports & Activities Grid -->
+    <section id="sports" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic mb-4">Any Activity, <span class="text-cobalt dark:text-volt">Any Time.</span></h2>
+                <p class="text-slate-500 font-medium">Sports, fitness, outdoor adventures — find your people</p>
+            </div>
+            <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🎾</div>
+                    <div class="font-bold text-xs md:text-sm">Tennis</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🏃</div>
+                    <div class="font-bold text-xs md:text-sm">Running</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🧘</div>
+                    <div class="font-bold text-xs md:text-sm">Yoga</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🚴</div>
+                    <div class="font-bold text-xs md:text-sm">Cycling</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🏀</div>
+                    <div class="font-bold text-xs md:text-sm">Basketball</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🥾</div>
+                    <div class="font-bold text-xs md:text-sm">Hiking</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🏊</div>
+                    <div class="font-bold text-xs md:text-sm">Swimming</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">⛳</div>
+                    <div class="font-bold text-xs md:text-sm">Golf</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">⚽</div>
+                    <div class="font-bold text-xs md:text-sm">Soccer</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🏋️</div>
+                    <div class="font-bold text-xs md:text-sm">Gym</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">🏓</div>
+                    <div class="font-bold text-xs md:text-sm">Pickleball</div>
+                </div>
+                <div class="p-4 md:p-6 rounded-2xl bg-white dark:bg-surface border border-slate-100 dark:border-white/5 text-center hover:border-volt dark:hover:border-volt transition group cursor-pointer">
+                    <div class="text-3xl md:text-4xl mb-2 md:mb-3 group-hover:scale-110 transition">➕</div>
+                    <div class="font-bold text-xs md:text-sm">More...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-obsidian">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <span class="glid-logo text-2xl">glid<span>.</span></span>
+                <p class="text-[11px] font-bold text-slate-400 tracking-widest uppercase">&copy; 2026 Glid. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-volt hover:text-black transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center hover:bg-volt hover:text-black transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Swipe Animation Logic (Client-Side) -->
+    <script is:inline>
+        const cards = [
+            { sport: 'Tennis', emoji: '🎾', venue: 'Sunset Tennis Club', time: '5:00 PM', distance: '3.2 km', skill: '3.8', image: 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Running', emoji: '🏃', venue: 'Burke Lake Trail', time: '6:00 AM', distance: '1.2 km', skill: '3.0', image: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Basketball', emoji: '🏀', venue: 'Riverside Court, Reston', time: '6:30 PM', distance: '1.8 km', skill: '4.2', image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Yoga', emoji: '🧘', venue: 'Zen Studio Ashburn', time: '7:00 AM', distance: '0.5 km', skill: '2.0', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Cycling', emoji: '🚴', venue: 'W&OD Trail Start', time: '5:30 AM', distance: '2.0 km', skill: '3.5', image: 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Soccer', emoji: '⚽', venue: 'Hanson Park, Ashburn', time: '7:45 PM', distance: '2.5 km', skill: '3.5', image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Hiking', emoji: '🥾', venue: 'Great Falls Trail', time: '8:00 AM', distance: '5.1 km', skill: '2.5', image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Swimming', emoji: '🏊', venue: 'Aquatic Center', time: '6:00 PM', distance: '1.5 km', skill: '3.0', image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Golf', emoji: '⛳', venue: 'Westfields Golf Club', time: '9:00 AM', distance: '4.2 km', skill: '4.0', image: 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=800' },
+            { sport: 'Pickleball', emoji: '🏓', venue: 'Community Center', time: '8:00 PM', distance: '0.8 km', skill: '2.5', image: 'https://images.unsplash.com/photo-1526232761682-d26e03ac148e?auto=format&fit=crop&q=80&w=800' },
+        ];
+
+        let currentIndex = 0;
+        let isAnimating = false;
+        let lastScrollY = 0;
+        let scrollThreshold = 150;
+        let accumulatedScroll = 0;
+
+        function createCardHTML(card) {
+            return `
+                <div class="h-full rounded-[32px] bg-cover bg-center relative overflow-hidden shadow-2xl" style="background-image: url('${card.image}');">
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/90"></div>
+                    <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full glass text-[10px] font-bold uppercase tracking-wider text-white">
+                        <span class="text-volt">Live</span> Now
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4 p-5 glass rounded-3xl">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-2xl">${card.emoji}</span>
+                            <h3 class="text-xl font-black italic uppercase text-white">${card.sport}</h3>
+                        </div>
+                        <p class="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-4">${card.venue}</p>
+                        <div class="grid grid-cols-3 gap-2 text-[10px] font-bold text-white/80">
+                            <div class="flex items-center gap-1.5 bg-white/10 rounded-lg px-2 py-1.5">
+                                <span>🕐</span> ${card.time}
+                            </div>
+                            <div class="flex items-center gap-1.5 bg-white/10 rounded-lg px-2 py-1.5">
+                                <span>📍</span> ${card.distance}
+                            </div>
+                            <div class="flex items-center gap-1.5 bg-volt/20 text-volt rounded-lg px-2 py-1.5">
+                                <span>📈</span> ${card.skill}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize Cards
+        function initCards() {
+            const cardStack = document.getElementById('cardStack');
+            if(!cardStack) return;
+            
+            // Add first 3 cards
+            for(let i=0; i<3; i++) {
+                const card = document.createElement('div');
+                if (i===0) card.className = 'swipe-card';
+                else if (i===1) card.className = 'swipe-card next-card';
+                else card.className = 'swipe-card hidden-card';
+                
+                card.dataset.card = i;
+                card.innerHTML = createCardHTML(cards[i]);
+                // Prepend to make sure first card is on top visually if z-index matched order, 
+                // but here CSS absolute positioning makes order matter: last element is on top?
+                // Actually usually in stack, last is on top. 
+                // Let's check original HTML logic.
+                // The original HTML had them hardcoded.
+                // We'll append them in reverse order so 0 is last (top) or just rely on z-index?
+                // The CSS doesn't use z-index for order, just position. 
+                // Let's just clear and append.
+                cardStack.appendChild(card);
+            }
+             // Actually, to simulate a stack where the first element is "behind", 
+             // we should likely just use the logic from the original script which *swapped* classes.
+             // But the original script assumed elements existed.
+             // Let's simplify: Just clear and rebuild the initial state.
+             cardStack.innerHTML = '';
+             // Hidden card (bottom)
+             const c3 = document.createElement('div');
+             c3.className = 'swipe-card hidden-card';
+             c3.innerHTML = createCardHTML(cards[2]);
+             cardStack.appendChild(c3);
+             
+             // Next card (middle)
+             const c2 = document.createElement('div');
+             c2.className = 'swipe-card next-card';
+             c2.innerHTML = createCardHTML(cards[1]);
+             cardStack.appendChild(c2);
+             
+             // Current card (top)
+             const c1 = document.createElement('div');
+             c1.className = 'swipe-card';
+             c1.innerHTML = createCardHTML(cards[0]);
+             cardStack.appendChild(c1);
+        }
+
+        function swipeCard(direction) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const cardStack = document.getElementById('cardStack');
+            // Select the *last* child because that's the one on top in DOM order usually?
+            // Wait, looking at initCards above: c1 is appended last. So it is on top.
+            // The selector in original code: .swipe-card:not(.next-card):not(.hidden-card)
+            const currentCard = cardStack.querySelector('.swipe-card:not(.next-card):not(.hidden-card)');
+            const nextCard = cardStack.querySelector('.swipe-card.next-card');
+            const hiddenCard = cardStack.querySelector('.swipe-card.hidden-card');
+            const likeBtn = document.getElementById('likeBtn');
+            const passBtn = document.getElementById('passBtn');
+            const matchPopup = document.getElementById('matchPopup');
+
+            if (!currentCard) {
+                isAnimating = false;
+                return;
+            }
+
+            // Animate button
+            if (direction === 'right') {
+                likeBtn.classList.add('active-like');
+                setTimeout(() => likeBtn.classList.remove('active-like'), 300);
+            } else {
+                passBtn.classList.add('active-pass');
+                setTimeout(() => passBtn.classList.remove('active-pass'), 300);
+            }
+
+            // Swipe current card
+            currentCard.classList.add(direction === 'right' ? 'swiping-right' : 'swiping-left');
+
+            // Show match popup on like (randomly, ~40% chance)
+            const showMatch = direction === 'right' && Math.random() > 0.6;
+
+            setTimeout(() => {
+                if (showMatch) {
+                    matchPopup.classList.add('show');
+                    setTimeout(() => {
+                        matchPopup.classList.remove('show');
+                        finishSwipe();
+                    }, 1500);
+                } else {
+                    finishSwipe();
+                }
+            }, 400);
+
+            function finishSwipe() {
+                // Remove swiped card
+                currentCard.remove();
+
+                // Promote next card
+                if (nextCard) {
+                    nextCard.classList.remove('next-card');
+                }
+
+                // Promote hidden card
+                if (hiddenCard) {
+                    hiddenCard.classList.remove('hidden-card');
+                    hiddenCard.classList.add('next-card');
+                }
+
+                // Add new hidden card
+                currentIndex = (currentIndex + 1) % cards.length;
+                const newCardIndex = (currentIndex + 2) % cards.length;
+                const newCard = document.createElement('div');
+                newCard.className = 'swipe-card hidden-card';
+                newCard.dataset.card = newCardIndex;
+                newCard.innerHTML = createCardHTML(cards[newCardIndex]);
+                // Insert at the beginning (bottom of stack)
+                cardStack.insertBefore(newCard, cardStack.firstChild);
+
+                isAnimating = false;
+            }
+        }
+
+        // Scroll-based swiping
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            const delta = scrollY - lastScrollY;
+            lastScrollY = scrollY;
+
+            // Only trigger when scrolling down and in the hero section
+            if (scrollY < window.innerHeight * 1.5) {
+                accumulatedScroll += Math.abs(delta);
+
+                if (accumulatedScroll >= scrollThreshold && !isAnimating) {
+                    accumulatedScroll = 0;
+                    // Alternate between right and left swipes, with more right swipes
+                    const direction = Math.random() > 0.3 ? 'right' : 'left';
+                    swipeCard(direction);
+                }
+            }
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            initCards();
+            
+            // Click handlers
+            document.getElementById('likeBtn')?.addEventListener('click', () => swipeCard('right'));
+            document.getElementById('passBtn')?.addEventListener('click', () => swipeCard('left'));
+            
+            // Scroll handler
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Auto-swipe demo
+            setTimeout(() => {
+                if (window.scrollY < 100) {
+                    swipeCard('right');
+                }
+            }, 3000);
+        });
+    </script>
+</Layout>

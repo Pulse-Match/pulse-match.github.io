@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  --color-volt: #CEFF00;
+  --color-cobalt: #2E5BFF;
+  --color-obsidian: #0A0A0A;
+  --color-surface: #1A1A1A;
+}
