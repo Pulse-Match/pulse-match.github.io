@@ -19,14 +19,17 @@ const { title } = Astro.props;
 		<title>{title}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-slate-50 text-slate-900 dark:bg-obsidian dark:text-white antialiased overflow-x-hidden font-sans">
+	<body class="antialiased font-sans selection:bg-cobalt selection:text-white relative bg-vapor text-obsidian dark:bg-dark-primary dark:text-white transition-colors duration-300 overflow-x-hidden">
+		<!-- Vapor Background -->
+		<div class="vapor-bg bg-vapor dark:bg-dark-primary"></div>
 		<slot />
         <script is:inline>
-            // Theme toggle logic
+            // Theme logic - follows system preference by default
             function applyTheme() {
-                const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDark = localStorage.theme === 'dark' || (!('theme' in localStorage) && systemDark);
                 document.documentElement.classList.toggle('dark', isDark);
             }
             // Expose globally for the toggle button
@@ -34,65 +37,147 @@ const { title } = Astro.props;
                 localStorage.theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
                 applyTheme();
             }
+            // Apply on load
             applyTheme();
+            // Listen for system color scheme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                // Only auto-switch if user hasn't set a preference
+                if (!('theme' in localStorage)) {
+                    document.documentElement.classList.toggle('dark', e.matches);
+                }
+            });
         </script>
 	</body>
 </html>
 
 <style is:global>
-    /* Custom styles from legacy index.html */
-    .glid-logo { font-style: italic; font-weight: 900; letter-spacing: -1.5px; text-transform: lowercase; }
-    .glid-logo span { color: var(--color-volt); }
-    
-    .glass { backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); }
-    :global(.dark) .glass { background: rgba(26, 26, 26, 0.8); border-color: rgba(255,255,255,0.05); }
-    .glass { background: rgba(255, 255, 255, 0.8); border-color: rgba(0,0,0,0.05); }
-    
-    .gradient-text {
-        background: linear-gradient(135deg, var(--color-volt) 0%, var(--color-cobalt) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+    /* Vapor Background Effect */
+    .vapor-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
     }
-    
-    .iphone-shadow {
-        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.1);
-    }
-    :global(.dark) .iphone-shadow {
-        box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), 0 0 60px rgba(206, 255, 0, 0.1);
-    }
-    
-    .glow-orb {
+    .vapor-bg::before,
+    .vapor-bg::after {
+        content: '';
         position: absolute;
         border-radius: 50%;
         filter: blur(80px);
         opacity: 0.5;
-        pointer-events: none;
+        animation: vapor-float 20s ease-in-out infinite;
     }
-    :global(.dark) .glow-orb { opacity: 0.3; }
+    .vapor-bg::before {
+        width: 60vw;
+        height: 60vw;
+        top: -20%;
+        left: -10%;
+        background: radial-gradient(circle, rgba(0, 113, 227, 0.15) 0%, transparent 70%);
+        animation-delay: 0s;
+    }
+    .vapor-bg::after {
+        width: 50vw;
+        height: 50vw;
+        bottom: -10%;
+        right: -10%;
+        background: radial-gradient(circle, rgba(0, 113, 227, 0.1) 0%, transparent 70%);
+        animation-delay: -10s;
+    }
+    .dark .vapor-bg::before {
+        background: radial-gradient(circle, rgba(0, 113, 227, 0.25) 0%, transparent 70%);
+    }
+    .dark .vapor-bg::after {
+        background: radial-gradient(circle, rgba(0, 113, 227, 0.2) 0%, transparent 70%);
+    }
+    @keyframes vapor-float {
+        0%, 100% {
+            transform: translate(0, 0) scale(1);
+        }
+        25% {
+            transform: translate(5%, 5%) scale(1.05);
+        }
+        50% {
+            transform: translate(0, 10%) scale(1);
+        }
+        75% {
+            transform: translate(-5%, 5%) scale(0.95);
+        }
+    }
 
-    /* Animations */
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
+    /* Glass Navigation */
+    .glass-nav {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
     }
-    .animate-float { animation: float 6s ease-in-out infinite; }
 
-    @keyframes pulse-glow {
-        0%, 100% { box-shadow: 0 0 20px rgba(206, 255, 0, 0.3); }
-        50% { box-shadow: 0 0 40px rgba(206, 255, 0, 0.6); }
+    /* Glass Panel for forms */
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
     }
-    .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+    :global(.dark) .glass-panel {
+        background: rgba(28, 28, 30, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-    @keyframes slide-up {
-        0% { opacity: 0; transform: translateY(30px); }
-        100% { opacity: 1; transform: translateY(0); }
+    /* Bento Card */
+    .bento-card {
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-    .animate-slide-up { animation: slide-up 0.6s ease-out; }
+    .bento-card:hover {
+        transform: translateY(-4px);
+    }
 
-    @keyframes fade-in {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
+    /* App Card for phone mockup */
+    .app-card {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        overflow: hidden;
+        transform-origin: bottom center;
+        will-change: transform, opacity;
+        background-size: cover;
+        background-position: center;
+        left: -12px;
     }
-    .animate-fade-in { animation: fade-in 0.8s ease-out; }
+    @media (min-width: 1024px) {
+        .app-card {
+            left: 0;
+        }
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+        background: linear-gradient(135deg, #0071e3, #D4FF00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Apple-style inputs */
+    .input-apple {
+        transition: all 0.2s ease;
+    }
+    .input-apple:focus {
+        transform: scale(1.01);
+        box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+    }
+
+    /* Status Pill */
+    .status-pill {
+        transition: all 0.3s ease;
+    }
+
+    /* Pulse Dot Animation */
+    .pulse-dot {
+        animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
 </style>
