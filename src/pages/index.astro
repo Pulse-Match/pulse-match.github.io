@@ -3,20 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import WaitlistForm from '../components/WaitlistForm';
 ---
 
-<Layout title="Glid. | Swipe into the Game">
+<Layout title="Glid — Stop Planning, Just Play">
 
-    <!-- ========== NAVIGATION ========== -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-inner">
-            <a href="#" class="logo">glid<span class="logo-dot">.</span></a>
-
+            <a href="/" class="logo">
+                <img src="/glid-logo-white.png" alt="Glid" class="logo-svg logo-dark" />
+                <img src="/glid-logo-black.png" alt="Glid" class="logo-svg logo-light" />
+            </a>
             <div class="nav-links">
                 <a href="#engine" class="nav-link">Matching</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#how-it-works" class="nav-link">How It Works</a>
                 <a href="#waitlist" class="nav-link">Waitlist</a>
             </div>
-
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <span class="theme-icon-dark">&#9790;</span>
@@ -28,8 +29,7 @@ import WaitlistForm from '../components/WaitlistForm';
     </nav>
 
     <main>
-
-        <!-- ========== HERO ========== -->
+        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
             <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
@@ -40,11 +40,11 @@ import WaitlistForm from '../components/WaitlistForm';
             </div>
 
             <h1 class="display-hero reveal delay-2">
-                Every game starts<br>
-                with a <span class="text-gradient">swipe.</span>
+                Stop Planning,<br>
+                Just <span class="text-gradient">Play.</span>
             </h1>
 
-            <p class="subhead hero-subtitle reveal delay-3">
+            <p class="hero-subtitle reveal delay-3">
                 Glid matches you with live sports sessions — not profiles.
                 Swipe on a game, show up, and play.
             </p>
@@ -57,98 +57,14 @@ import WaitlistForm from '../components/WaitlistForm';
                 <a href="#how-it-works" class="btn-ghost">See How It Works</a>
             </div>
 
-            <!-- Phone mockup -->
-            <div class="phone-container reveal-scale delay-5">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="phone-island"></div>
-                        <div class="phone-content phone-home">
-                            <!-- Header -->
-                            <div class="phone-header">
-                                <span class="phone-title">Home</span>
-                                <div class="phone-avatar-sm">J</div>
-                            </div>
-
-                            <!-- Top Picks -->
-                            <div class="phone-label">Top Picks for You</div>
-                            <div class="phone-carousel">
-                                <div class="pick-card pick-warm">
-                                    <div class="pick-img">🏀</div>
-                                    <div class="pick-body">
-                                        <span class="pick-tag">Up for a challenge</span>
-                                        <span class="pick-name">Competitive Play</span>
-                                    </div>
-                                </div>
-                                <div class="pick-card pick-mint">
-                                    <div class="pick-img">🎾</div>
-                                    <div class="pick-body">
-                                        <span class="pick-tag">Level up your game</span>
-                                        <span class="pick-name">Training Day</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Explore Map -->
-                            <div class="phone-label">Explore</div>
-                            <div class="phone-map-area">
-                                <svg class="map-bg" viewBox="0 0 400 300" fill="none" preserveAspectRatio="xMidYMid slice">
-                                    <path d="M300,0Q370,50,400,30L400,0Z" fill="var(--map-water)"/>
-                                    <path d="M0,240Q100,215,220,250Q340,285,400,260L400,300L0,300Z" fill="var(--map-water)"/>
-                                    <rect x="50" y="70" width="75" height="50" rx="6" fill="var(--map-park)"/>
-                                    <rect x="280" y="95" width="50" height="65" rx="6" fill="var(--map-park)"/>
-                                    <line x1="0" y1="145" x2="400" y2="145" stroke="var(--map-road)" stroke-width="4"/>
-                                    <line x1="175" y1="0" x2="175" y2="300" stroke="var(--map-road)" stroke-width="4"/>
-                                    <line x1="0" y1="55" x2="400" y2="55" stroke="var(--map-st)" stroke-width="1.5"/>
-                                    <line x1="0" y1="210" x2="400" y2="210" stroke="var(--map-st)" stroke-width="1.5"/>
-                                    <line x1="90" y1="0" x2="90" y2="300" stroke="var(--map-st)" stroke-width="1.5"/>
-                                    <line x1="310" y1="0" x2="310" y2="300" stroke="var(--map-st)" stroke-width="1.5"/>
-                                    <line x1="0" y1="270" x2="300" y2="0" stroke="var(--map-st)" stroke-width="2"/>
-                                    <rect x="15" y="155" width="55" height="40" rx="3" fill="var(--map-block)"/>
-                                    <rect x="195" y="60" width="45" height="35" rx="3" fill="var(--map-block)"/>
-                                    <rect x="195" y="155" width="90" height="40" rx="3" fill="var(--map-block)"/>
-                                    <rect x="320" y="155" width="60" height="40" rx="3" fill="var(--map-block)"/>
-                                </svg>
-                                <div class="pm-pin pm-cluster" style="top: 22%; left: 18%;">5</div>
-                                <div class="pm-pin pm-cluster" style="top: 52%; left: 62%;">10</div>
-                                <div class="pm-pin pm-sport" style="top: 36%; left: 42%;">🎾</div>
-
-                                <!-- Floating card -->
-                                <div class="pm-float">
-                                    <div class="pm-float-thumb">🏀</div>
-                                    <div class="pm-float-info">
-                                        <div class="pm-float-type">Competitive</div>
-                                        <div class="pm-float-name">Jon Doe</div>
-                                        <div class="pm-float-stats">
-                                            <span class="pm-match">90%</span>
-                                            <span class="pm-vibes">70%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Bottom Nav -->
-                            <div class="phone-dock">
-                                <div class="dock-pill">
-                                    <div class="dock-tab dock-active">&#8962;</div>
-                                    <div class="dock-tab">&#9900;</div>
-                                    <div class="dock-tab">&#9829;</div>
-                                </div>
-                                <div class="dock-search">&#9906;</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="scroll-indicator">
                 <span>Scroll</span>
                 <div class="scroll-line"></div>
             </div>
         </section>
 
-        <!-- ========== CONCEPT ========== -->
+        <!-- Concept Section -->
         <div class="section-divider"></div>
-
         <section class="section">
             <div class="concept-grid">
                 <div>
@@ -156,22 +72,23 @@ import WaitlistForm from '../components/WaitlistForm';
                     <h2 class="display-large reveal delay-1" style="margin-top: 16px;">
                         Sessions, not<br>profiles.
                     </h2>
-                    <p class="body-large reveal delay-2" style="margin-top: 20px; max-width: 480px;">
+                    <p class="body-large reveal delay-2" style="margin-top: 20px; max-width: 480px; color: var(--text-secondary);">
                         Other apps match you with people. Glid matches you with
                         <strong style="color: var(--text-primary);">games worth playing</strong>.
                         Every card is a real session — scored by skill and reliability, not just proximity.
                         When the clock hits zero, the card disappears. No ghosting. Just playing.
                     </p>
                 </div>
-                <div class="concept-visual reveal-scale delay-3">
+
+                <div class="reveal-scale delay-3">
                     <div class="card-comparison">
                         <!-- Old way -->
                         <div class="comparison-card faded">
-                            <div style="height: 140px; background: var(--bg); display: flex; align-items: center; justify-content: center;">
-                                <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--surface-secondary); display: flex; align-items: center; justify-content: center; font-size: 24px;">👤</div>
+                            <div style="height: 140px; background: var(--surface); display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--surface-secondary); display: flex; align-items: center; justify-content: center; font-size: 24px;">&#128100;</div>
                             </div>
                             <div style="padding: 14px;">
-                                <div style="font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: 'Bricolage Grotesque', sans-serif;">John, 28</div>
+                                <div style="font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: var(--font-body);">John, 28</div>
                                 <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;">Likes tennis, maybe</div>
                             </div>
                             <div class="comparison-label">Profile-first</div>
@@ -183,12 +100,12 @@ import WaitlistForm from '../components/WaitlistForm';
                         <!-- New way -->
                         <div class="comparison-card active">
                             <div style="height: 140px; background: linear-gradient(135deg, #0a3d1f, #1a6b3a); display: flex; align-items: center; justify-content: center; position: relative;">
-                                <span style="position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.15); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 3px 8px; border-radius: 99px; font-size: 7px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em;">Competitive</span>
-                                <span style="font-size: 40px;">🎾</span>
+                                <span style="position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(6px); padding: 3px 8px; border-radius: 99px; font-size: 7px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em;">Competitive</span>
+                                <span style="font-size: 40px;">&#127934;</span>
                             </div>
                             <div style="padding: 14px;">
-                                <div style="font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: 'Bricolage Grotesque', sans-serif;">Tennis @ Ashburn</div>
-                                <div style="font-size: 10px; color: var(--accent); margin-top: 4px; font-weight: 600;">Today, 7 PM · 3 spots</div>
+                                <div style="font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: var(--font-body);">Tennis @ Ashburn</div>
+                                <div style="font-size: 10px; color: var(--grass-light); margin-top: 4px; font-weight: 600;">Today, 7 PM &middot; 3 spots</div>
                                 <div style="display: flex; gap: 8px; margin-top: 6px;">
                                     <span style="font-size: 8px; color: #34C759; font-weight: 700;">Match 90%</span>
                                     <span style="font-size: 8px; color: #FF9500; font-weight: 700;">Vibes 70%</span>
@@ -201,9 +118,8 @@ import WaitlistForm from '../components/WaitlistForm';
             </div>
         </section>
 
-        <!-- ========== THE ENGINE ========== -->
+        <!-- The Engine Section -->
         <div class="section-divider"></div>
-
         <section class="section" id="engine">
             <div style="text-align: center; margin-bottom: 64px;">
                 <p class="overline reveal">Smart Matching</p>
@@ -247,7 +163,7 @@ import WaitlistForm from '../components/WaitlistForm';
             </div>
 
             <div class="engine-premium reveal delay-3">
-                <div class="engine-premium-badge">Coming Soon · Premium</div>
+                <div class="engine-premium-badge">Coming Soon &middot; Premium</div>
                 <p class="engine-premium-text">
                     Smart suggestions that learn your schedule and preferences.
                     The app gets better the more you use it.
@@ -255,9 +171,8 @@ import WaitlistForm from '../components/WaitlistForm';
             </div>
         </section>
 
-        <!-- ========== FEATURES BENTO ========== -->
+        <!-- Features Section -->
         <div class="section-divider"></div>
-
         <section class="section section-tight" id="features">
             <div style="text-align: center; margin-bottom: 36px;">
                 <p class="overline reveal">Features</p>
@@ -270,133 +185,34 @@ import WaitlistForm from '../components/WaitlistForm';
             </div>
 
             <div class="bento-grid">
-                <!-- Top Picks -->
                 <div class="bento-card reveal delay-1">
                     <div class="bento-card-label">Discover</div>
                     <div class="bento-card-title">Top Picks</div>
                     <div class="bento-card-desc">Personalized sessions based on your sport, skill level, and goals. Competitive games, training days, mentorship — whatever you're looking for.</div>
-                    <div class="bento-visual">
-                        <div class="picks-visual">
-                            <div class="picks-card picks-warm">
-                                <div class="picks-img">🏀</div>
-                                <div class="picks-text">
-                                    <span class="picks-tag">Up for a challenge</span>
-                                    <span class="picks-name">Competitive</span>
-                                    <span class="picks-desc">Push your limits</span>
-                                </div>
-                            </div>
-                            <div class="picks-card picks-mint">
-                                <div class="picks-img">🎾</div>
-                                <div class="picks-text">
-                                    <span class="picks-tag">Level up your game</span>
-                                    <span class="picks-name">Training Day</span>
-                                    <span class="picks-desc">Find a coach or mentor</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Match & Vibes -->
                 <div class="bento-card reveal delay-2">
                     <div class="bento-card-label">Compatibility</div>
                     <div class="bento-card-title">Match & Vibes</div>
                     <div class="bento-card-desc">Every session shows your compatibility. Match measures skill. Vibes measures reliability. Both update after every game.</div>
-                    <div class="bento-visual">
-                        <div class="compat-visual">
-                            <div class="compat-ring compat-match-ring">
-                                <svg viewBox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--border)" stroke-width="6"/>
-                                    <circle cx="50" cy="50" r="42" fill="none" stroke="#34C759" stroke-width="6" stroke-dasharray="263.9" stroke-dashoffset="26.4" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-                                </svg>
-                                <div class="compat-inner">
-                                    <span class="compat-val">90<span class="compat-pct">%</span></span>
-                                    <span class="compat-lbl compat-lbl-match">Match</span>
-                                </div>
-                            </div>
-                            <div class="compat-ring compat-vibes-ring">
-                                <svg viewBox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="42" fill="none" stroke="var(--border)" stroke-width="6"/>
-                                    <circle cx="50" cy="50" r="42" fill="none" stroke="#FF9500" stroke-width="6" stroke-dasharray="263.9" stroke-dashoffset="79.2" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-                                </svg>
-                                <div class="compat-inner">
-                                    <span class="compat-val">70<span class="compat-pct">%</span></span>
-                                    <span class="compat-lbl compat-lbl-vibes">Vibes</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Auto-expire -->
                 <div class="bento-card reveal delay-3">
                     <div class="bento-card-label">Sessions</div>
                     <div class="bento-card-title">Auto-expire</div>
                     <div class="bento-card-desc">Sessions disappear when the game starts. No stale listings. Always live.</div>
-                    <div class="bento-visual">
-                        <div class="timer-ring">
-                            <div class="timer-value">2:47</div>
-                            <div class="timer-label">until start</div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Explore Map -->
                 <div class="bento-card reveal delay-4">
                     <div class="bento-card-label">Explore</div>
                     <div class="bento-card-title">Live map</div>
                     <div class="bento-card-desc">Real-time map of every session near you. Red clusters for hot spots, green pins for individual games. Tap to see details and join.</div>
-                    <div class="bento-visual">
-                        <div class="map-visual">
-                            <svg class="map-bg" viewBox="0 0 400 300" fill="none" preserveAspectRatio="xMidYMid slice">
-                                <path d="M300,0Q370,50,400,30L400,0Z" fill="var(--map-water)"/>
-                                <path d="M0,240Q100,215,220,250Q340,285,400,260L400,300L0,300Z" fill="var(--map-water)"/>
-                                <rect x="50" y="70" width="75" height="50" rx="6" fill="var(--map-park)"/>
-                                <rect x="280" y="95" width="50" height="65" rx="6" fill="var(--map-park)"/>
-                                <line x1="0" y1="145" x2="400" y2="145" stroke="var(--map-road)" stroke-width="4"/>
-                                <line x1="175" y1="0" x2="175" y2="300" stroke="var(--map-road)" stroke-width="4"/>
-                                <line x1="0" y1="55" x2="400" y2="55" stroke="var(--map-st)" stroke-width="1.5"/>
-                                <line x1="0" y1="210" x2="400" y2="210" stroke="var(--map-st)" stroke-width="1.5"/>
-                                <line x1="90" y1="0" x2="90" y2="300" stroke="var(--map-st)" stroke-width="1.5"/>
-                                <line x1="310" y1="0" x2="310" y2="300" stroke="var(--map-st)" stroke-width="1.5"/>
-                                <line x1="0" y1="270" x2="300" y2="0" stroke="var(--map-st)" stroke-width="2"/>
-                                <rect x="15" y="155" width="55" height="40" rx="3" fill="var(--map-block)"/>
-                                <rect x="195" y="60" width="45" height="35" rx="3" fill="var(--map-block)"/>
-                                <rect x="195" y="155" width="90" height="40" rx="3" fill="var(--map-block)"/>
-                                <rect x="320" y="155" width="60" height="40" rx="3" fill="var(--map-block)"/>
-                                <rect x="15" y="10" width="60" height="35" rx="3" fill="var(--map-block)"/>
-                                <rect x="195" y="10" width="80" height="35" rx="3" fill="var(--map-block)"/>
-                            </svg>
-                            <div class="map-cluster" style="top: 28%; left: 22%;">
-                                <span>5</span>
-                                <div class="map-cluster-pulse"></div>
-                            </div>
-                            <div class="map-cluster" style="top: 55%; left: 58%;">
-                                <span>10</span>
-                                <div class="map-cluster-pulse"></div>
-                            </div>
-                            <div class="map-sport-pin" style="top: 38%; left: 40%;">🎾</div>
-                            <div class="map-sport-pin" style="top: 20%; left: 68%;">🏀</div>
-                            <div class="map-float-card">
-                                <div class="map-float-thumb">🏀</div>
-                                <div class="map-float-details">
-                                    <div class="map-float-label">Competitive</div>
-                                    <div class="map-float-name">Jon Doe</div>
-                                    <div class="map-float-scores">
-                                        <span style="color: #34C759; font-weight: 800;">90%</span>
-                                        <span style="color: #FF9500; font-weight: 800;">70%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ========== HOW IT WORKS ========== -->
+        <!-- How It Works Section -->
         <div class="section-divider"></div>
-
         <section class="section section-tight" id="how-it-works">
             <div style="text-align: center; margin-bottom: 64px;">
                 <p class="overline reveal">How It Works</p>
@@ -408,30 +224,29 @@ import WaitlistForm from '../components/WaitlistForm';
             <div class="steps-grid">
                 <div class="step-card reveal delay-1">
                     <div class="step-number">01</div>
-                    <div class="step-icon">🔍</div>
+                    <div class="step-icon">&#128269;</div>
                     <div class="step-title">Find a session</div>
                     <div class="step-desc">Browse live sessions on the map or create your own. Pick your sport, set the time and place.</div>
                 </div>
 
                 <div class="step-card reveal delay-2">
                     <div class="step-number">02</div>
-                    <div class="step-icon">👆</div>
+                    <div class="step-icon">&#9757;</div>
                     <div class="step-title">Swipe to join</div>
                     <div class="step-desc">Swipe right on a session you like. The host reviews your profile and accepts — you're in.</div>
                 </div>
 
                 <div class="step-card reveal delay-3">
                     <div class="step-number">03</div>
-                    <div class="step-icon">🏃</div>
+                    <div class="step-icon">&#127939;</div>
                     <div class="step-title">Show up and play</div>
                     <div class="step-desc">Chat with your match, coordinate details, and meet at the venue. Game on.</div>
                 </div>
             </div>
         </section>
 
-        <!-- ========== CTA ========== -->
+        <!-- CTA Section -->
         <div class="section-divider"></div>
-
         <section class="cta-section" id="waitlist">
             <div class="cta-container">
                 <p class="overline reveal">Beta Access</p>
@@ -449,21 +264,23 @@ import WaitlistForm from '../components/WaitlistForm';
         </section>
     </main>
 
-    <!-- ========== FOOTER ========== -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-inner">
-            <a href="#" class="logo" style="font-size: 1.1rem;">glid<span class="logo-dot">.</span></a>
+            <a href="/" class="logo">
+                <img src="/glid-logo-white.png" alt="Glid" class="logo-svg logo-dark" />
+                <img src="/glid-logo-black.png" alt="Glid" class="logo-svg logo-light" />
+            </a>
             <div class="footer-links">
                 <a href="#engine" class="footer-link">Matching</a>
                 <a href="#features" class="footer-link">Features</a>
                 <a href="#how-it-works" class="footer-link">How It Works</a>
-                <a href="#waitlist" class="footer-link">Waitlist</a>
+                <a href="/privacy" class="footer-link">Privacy</a>
             </div>
             <div class="footer-copy">&copy; 2026 Glid. All rights reserved.</div>
         </div>
     </footer>
 
-    <!-- ========== SCRIPTS ========== -->
     <script is:inline>
         // Theme toggle
         document.getElementById('themeToggle').addEventListener('click', () => {
@@ -488,17 +305,7 @@ import WaitlistForm from '../components/WaitlistForm';
             revealObserver.observe(el);
         });
 
-        // Parallax on hero phone mockup
-        const phone = document.querySelector('.phone-container');
-        if (phone) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.scrollY;
-                const rate = scrolled * 0.15;
-                phone.style.transform = `translateY(${rate}px)`;
-            }, { passive: true });
-        }
-
-        // Smooth scroll for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
