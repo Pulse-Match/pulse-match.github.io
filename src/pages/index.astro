@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import WaitlistForm from "../components/WaitlistForm";
+import PhoneMockup from "../components/PhoneMockup.astro";
 ---
 
 <Layout title="Glid — Stop Planning, Just Play">
@@ -20,10 +21,9 @@ import WaitlistForm from "../components/WaitlistForm";
                 />
             </a>
             <div class="nav-links">
-                <a href="#how-it-works" class="nav-link">How It Works</a>
-                <a href="#engine" class="nav-link">Matching</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#waitlist" class="nav-link">Waitlist</a>
+                <a href="#discover" class="nav-link">Discover</a>
+                <a href="#play" class="nav-link">Browse</a>
+                <a href="#match" class="nav-link">Match</a>
             </div>
             <div class="nav-actions">
                 <button
@@ -40,328 +40,300 @@ import WaitlistForm from "../components/WaitlistForm";
     </nav>
 
     <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-            <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-
-            <div class="hero-badge reveal delay-1">
-                <span class="hero-badge-dot"></span>
-                Launching 2026
-            </div>
-
-            <h1 class="display-hero reveal delay-2">
-                Stop Planning,<br />
-                Just <span class="text-gradient">Play.</span>
-            </h1>
-
-            <p class="hero-subtitle reveal delay-3">
-                Find live sessions near you. Swipe to join. Show up and play. No
-                more texting 10 friends to find one opponent.
-            </p>
-
-            <div class="hero-cta-group reveal delay-4">
-                <a href="#waitlist" class="btn-primary">
-                    Get Early Access
-                    <span>&rarr;</span>
-                </a>
-                <a href="#how-it-works" class="btn-ghost">See How It Works</a>
-            </div>
-
-            <div class="scroll-indicator">
-                <span>Scroll</span>
-                <div class="scroll-line"></div>
-            </div>
-        </section>
-
-        <!-- How It Works Section -->
-        <div class="section-divider"></div>
-        <section class="section section-tight" id="how-it-works">
-            <div style="text-align: center; margin-bottom: 64px;">
-                <p class="overline reveal">How It Works</p>
-                <h2
-                    class="display-large reveal delay-1"
-                    style="margin-top: 16px;"
-                >
-                    Three steps to game time.
-                </h2>
-            </div>
-
-            <div class="steps-grid">
-                <div class="step-card reveal delay-1">
-                    <div class="step-number">01</div>
-                    <div class="step-icon">&#128269;</div>
-                    <div class="step-title">Find a session</div>
-                    <div class="step-desc">
-                        Browse live sessions on the map or create your own. Pick
-                        your sport, set the time and place.
-                    </div>
+        <!-- Hero with Phone -->
+        <section class="hero-split">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Launching 2026
                 </div>
-
-                <div class="step-card reveal delay-2">
-                    <div class="step-number">02</div>
-                    <div class="step-icon">&#9757;</div>
-                    <div class="step-title">Swipe to join</div>
-                    <div class="step-desc">
-                        Swipe right on a session you like. The host reviews your
-                        profile and accepts — you're in.
-                    </div>
-                </div>
-
-                <div class="step-card reveal delay-3">
-                    <div class="step-number">03</div>
-                    <div class="step-icon">&#127939;</div>
-                    <div class="step-title">Show up and play</div>
-                    <div class="step-desc">
-                        Chat with your match, coordinate details, and meet at
-                        the venue. Game on.
-                    </div>
+                <h1 class="display-hero">
+                    Stop Planning,<br />
+                    Just <span class="text-gradient">Play.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    The app that turns "anyone free?" into game time.
+                </p>
+                <div class="scroll-hint">
+                    <span>Scroll to explore</span>
+                    <div class="scroll-arrow">↓</div>
                 </div>
             </div>
-        </section>
-
-        <!-- Concept Section -->
-        <div class="section-divider"></div>
-        <section class="section">
-            <div class="concept-grid">
-                <div>
-                    <p class="overline reveal">A new way to play</p>
-                    <h2
-                        class="display-large reveal delay-1"
-                        style="margin-top: 16px;"
-                    >
-                        Sessions, not<br />profiles.
-                    </h2>
-                    <p
-                        class="body-large reveal delay-2"
-                        style="margin-top: 20px; max-width: 480px; color: var(--text-secondary);"
-                    >
-                        Other apps match you with people. Glid matches you with
-                        <strong style="color: var(--text-primary);"
-                            >games worth playing</strong
-                        >. Every card is a real session — scored by skill and
-                        reliability, not just proximity. When the clock hits
-                        zero, the card disappears. No ghosting. Just playing.
-                    </p>
-                </div>
-
-                <div class="reveal-scale delay-3">
-                    <div class="card-comparison">
-                        <!-- Old way -->
-                        <div class="comparison-card faded">
-                            <div
-                                style="height: 140px; background: var(--surface); display: flex; align-items: center; justify-content: center;"
-                            >
-                                <div
-                                    style="width: 60px; height: 60px; border-radius: 50%; background: var(--surface-secondary); display: flex; align-items: center; justify-content: center; font-size: 24px;"
-                                >
-                                    &#128100;
-                                </div>
-                            </div>
-                            <div style="padding: 14px;">
-                                <div
-                                    style="font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: var(--font-body);"
-                                >
-                                    John, 28
-                                </div>
-                                <div
-                                    style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px;"
-                                >
-                                    Likes tennis, maybe
-                                </div>
-                            </div>
-                            <div class="comparison-label">Profile-first</div>
+            <div class="hero-phone">
+                <div class="phone-with-pins">
+                    <PhoneMockup
+                        lightSrc="/home-screen-light.png"
+                        darkSrc="/home-screen-dark.PNG"
+                        alt="Glid Home Screen"
+                        size="xl"
+                    />
+                    <!-- Animated map pins -->
+                    <div class="map-pins">
+                        <div class="map-pin pin-1">
+                            <div class="pin-icon">&#127934;</div>
                         </div>
-
-                        <!-- Arrow -->
-                        <div
-                            style="font-size: 1.5rem; color: var(--text-tertiary);"
-                        >
-                            &rarr;
+                        <div class="map-pin pin-2">
+                            <div class="pin-icon">&#127936;</div>
                         </div>
-
-                        <!-- New way -->
-                        <div class="comparison-card active">
-                            <div
-                                style="height: 140px; background: linear-gradient(135deg, #047857, #059669); display: flex; align-items: center; justify-content: center; position: relative;"
-                            >
-                                <span
-                                    style="position: absolute; top: 10px; left: 10px; background: rgba(28, 25, 23, 0.85); backdrop-filter: blur(6px); padding: 3px 8px; border-radius: 99px; font-size: 7px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.05em;"
-                                    >Competitive</span
-                                >
-                                <span style="font-size: 40px;">&#127934;</span>
-                            </div>
-                            <div style="padding: 14px;">
-                                <div
-                                    style="font-size: 12px; font-weight: 700; color: var(--text-primary); font-family: var(--font-body);"
-                                >
-                                    Tennis @ Ashburn
-                                </div>
-                                <div
-                                    style="font-size: 10px; color: var(--field); margin-top: 4px; font-weight: 600;"
-                                >
-                                    Today, 7 PM &middot; 3 spots
-                                </div>
-                                <div
-                                    style="display: flex; gap: 8px; margin-top: 6px;"
-                                >
-                                    <span
-                                        style="font-size: 8px; color: var(--field); font-weight: 700;"
-                                        >Match 90%</span
-                                    >
-                                    <span
-                                        style="font-size: 8px; color: var(--clay); font-weight: 700;"
-                                        >Vibes 70%</span
-                                    >
-                                </div>
-                            </div>
-                            <div class="comparison-label">Session-first</div>
+                        <div class="map-pin pin-3">
+                            <div class="pin-icon">&#9917;</div>
+                        </div>
+                        <div class="map-pin pin-4">
+                            <div class="pin-icon">&#127955;</div>
+                        </div>
+                        <div class="map-pin pin-5">
+                            <div class="pin-icon">&#127947;</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Engine Section -->
-        <div class="section-divider"></div>
-        <section class="section" id="engine">
-            <div style="text-align: center; margin-bottom: 64px;">
-                <p class="overline reveal">Smart Matching</p>
-                <h2
-                    class="display-large reveal delay-1"
-                    style="margin-top: 16px;"
-                >
-                    Two ratings.<br />Zero guesswork.
-                </h2>
+        <!-- Scroll Story Section 1: The Problem -->
+        <section class="story-section" id="problem">
+            <div class="story-content">
+                <div class="story-number">01</div>
+                <h2 class="story-title reveal">The Problem</h2>
+                <p class="story-text reveal delay-1">
+                    You want to play tennis this weekend.<br />
+                    You text 10 friends. 3 reply. None are free.<br />
+                    <strong>Sound familiar?</strong>
+                </p>
+                <p class="story-text reveal delay-2">
+                    Finding people to play with shouldn't be harder than the
+                    game itself.
+                </p>
+            </div>
+        </section>
+
+        <!-- Scroll Story Section 2: Discover -->
+        <section class="story-section story-with-phone" id="discover">
+            <div class="story-phone-container">
+                <PhoneMockup
+                    lightSrc="/map-screen-light.PNG"
+                    darkSrc="/Map-screen-dark.PNG"
+                    alt="Live Map"
+                    size="lg"
+                />
+            </div>
+            <div class="story-content">
+                <div class="story-number">02</div>
+                <h2 class="story-title reveal">Discover</h2>
+                <h3 class="story-headline reveal delay-1">
+                    Find games happening now
+                </h3>
+                <p class="story-text reveal delay-2">
+                    Open the map. See every session near you in real-time.
+                    Tennis at the park. Basketball downtown. Pickleball at noon.
+                </p>
+                <div class="story-features reveal delay-3">
+                    <div class="feature-tag">Live Map</div>
+                    <div class="feature-tag">Any Sport</div>
+                    <div class="feature-tag">Real-time</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Story Section 3: Browse Sessions -->
+        <section class="story-section story-with-phone story-reverse" id="play">
+            <div class="story-phone-container">
+                <PhoneMockup
+                    lightSrc="/plays-list-light.PNG"
+                    darkSrc="/plays-list-dark.PNG"
+                    alt="Sessions List"
+                    size="lg"
+                />
+            </div>
+            <div class="story-content">
+                <div class="story-number">03</div>
+                <h2 class="story-title reveal">Browse</h2>
+                <h3 class="story-headline reveal delay-1">
+                    Scroll through sessions
+                </h3>
+                <p class="story-text reveal delay-2">
+                    Every card is a real game. No more group chats trying to
+                    coordinate schedules. See a session that fits? Swipe to
+                    join. Can't find what you're looking for? Create your own
+                    session and the players who share your interests get
+                    notified instantly.
+                </p>
+                <div class="story-features reveal delay-3">
+                    <div class="feature-tag">Swipe to Join</div>
+                    <div class="feature-tag">Create Sessions</div>
+                    <div class="feature-tag">Instant Notifications</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Story Section 4: Match with Players -->
+        <section class="story-section story-with-phone" id="match">
+            <div class="story-phone-container">
+                <PhoneMockup
+                    lightSrc="/people screen Card not flipped light.PNG"
+                    darkSrc="/people screen card not flipped dark.PNG"
+                    alt="Player Cards"
+                    size="lg"
+                />
+            </div>
+            <div class="story-content">
+                <div class="story-number">04</div>
+                <h2 class="story-title reveal">Match</h2>
+                <h3 class="story-headline reveal delay-1">
+                    Find your perfect playing partners
+                </h3>
+                <p class="story-text reveal delay-2">
+                    Connect with players who match your style. Our algorithm
+                    curates people based on skill level, availability, and
+                    playing preferences. Every connection is someone you'll
+                    actually enjoy playing with.
+                </p>
+                <div class="story-scores reveal delay-3">
+                    <div class="score-item">
+                        <span class="score-label">Match</span>
+                        <span class="score-value score-match">Skill Level</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Vibes</span>
+                        <span class="score-value score-vibes">Reliability</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Story Section 5: Flip to Learn More -->
+        <section class="story-section story-with-phone story-reverse" id="flip">
+            <div class="story-phone-container">
+                <div class="flip-card-demo" id="flipCardDemo">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <PhoneMockup
+                                lightSrc="/people screen Card not flipped light.PNG"
+                                darkSrc="/people screen card not flipped dark.PNG"
+                                alt="Player Card Front"
+                                size="lg"
+                            />
+                        </div>
+                        <div class="flip-card-back">
+                            <PhoneMockup
+                                lightSrc="/people screen card flipped dark.PNG"
+                                darkSrc="/people screen card flipped dark.PNG"
+                                alt="Player Card Back"
+                                size="lg"
+                            />
+                        </div>
+                    </div>
+                    <div class="flip-hint">
+                        <span class="flip-icon">↻</span>
+                        <span>Tap to flip</span>
+                    </div>
+                </div>
+            </div>
+            <div class="story-content">
+                <div class="story-number">05</div>
+                <h2 class="story-title reveal">Deep Dive</h2>
+                <h3 class="story-headline reveal delay-1">
+                    Flip cards to see the full picture
+                </h3>
+                <p class="story-text reveal delay-2">
+                    Curious about a player? Tap their card to flip it and reveal
+                    detailed stats, play history, and mutual connections. See
+                    their Match score, Vibes rating, and reviews from players
+                    they've competed with.
+                </p>
+                <div class="story-features reveal delay-3">
+                    <div class="feature-tag">Detailed Stats</div>
+                    <div class="feature-tag">Play History</div>
+                    <div class="feature-tag">Player Reviews</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Story Section 6: The Ratings -->
+        <section class="story-section story-centered" id="ratings">
+            <div class="story-content story-content-wide">
+                <div class="story-number">06</div>
+                <h2 class="story-title reveal">Smart Matching</h2>
+                <h3 class="story-headline reveal delay-1">
+                    Two ratings. Zero guesswork.
+                </h3>
                 <p
-                    class="subhead reveal delay-2"
-                    style="margin-top: 16px; max-width: 560px; margin-left: auto; margin-right: auto;"
+                    class="story-text reveal delay-2"
+                    style="max-width: 600px; margin: 0 auto;"
                 >
-                    Every player gets two scores — one for skill, one for
-                    reliability. So you always know what you're getting into.
+                    Every player gets two scores that update after every game.
                 </p>
-            </div>
 
-            <div class="engine-grid">
-                <div class="engine-card reveal delay-1">
-                    <div class="engine-badge engine-badge-match">Match</div>
-                    <h3 class="engine-card-title">Your Skill Level</h3>
-                    <p class="engine-card-desc">
-                        We track how you play — your wins, consistency, and
-                        competitive edge. The more you play, the smarter your
-                        matches get.
-                    </p>
-                    <div class="engine-traits">
-                        <span>Skill Level</span>
-                        <span>Win Rate</span>
-                        <span>Consistency</span>
+                <div class="ratings-grid reveal delay-3">
+                    <div class="rating-card">
+                        <div class="rating-badge rating-match">Match</div>
+                        <h4>Your Skill Level</h4>
+                        <p>
+                            We track wins, consistency, and competitive edge.
+                            Play more, match smarter.
+                        </p>
+                        <div class="rating-traits">
+                            <span>Skill</span>
+                            <span>Win Rate</span>
+                            <span>Consistency</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="engine-card reveal delay-2">
-                    <div class="engine-badge engine-badge-vibes">Vibes</div>
-                    <h3 class="engine-card-title">Your Reliability</h3>
-                    <p class="engine-card-desc">
-                        We track how you show up — punctuality, sportsmanship,
-                        and energy. Good reviews from reliable players count
-                        even more.
-                    </p>
-                    <div class="engine-traits">
-                        <span>Punctuality</span>
-                        <span>Sportsmanship</span>
-                        <span>Energy</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="engine-premium reveal delay-3">
-                <div class="engine-premium-badge">
-                    Coming Soon &middot; Premium
-                </div>
-                <p class="engine-premium-text">
-                    Smart suggestions that learn your schedule and preferences.
-                    The app gets better the more you use it.
-                </p>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <div class="section-divider"></div>
-        <section class="section section-tight" id="features">
-            <div style="text-align: center; margin-bottom: 36px;">
-                <p class="overline reveal">Features</p>
-                <h2
-                    class="display-large reveal delay-1"
-                    style="margin-top: 16px;"
-                >
-                    Built for everyday athletes.
-                </h2>
-                <p class="subhead reveal delay-2" style="margin-top: 16px;">
-                    Get back to the sport you love. We handle the logistics.
-                </p>
-            </div>
-
-            <div class="bento-grid">
-                <div class="bento-card reveal delay-1">
-                    <div class="bento-card-label">Discover</div>
-                    <div class="bento-card-title">Find Your Game</div>
-                    <div class="bento-card-desc">
-                        Personalized sessions based on your sport, skill level,
-                        and goals. Competitive games, casual pickup, coaching —
-                        whatever gets you moving.
-                    </div>
-                </div>
-
-                <div class="bento-card reveal delay-2">
-                    <div class="bento-card-label">Compatibility</div>
-                    <div class="bento-card-title">Match & Vibes</div>
-                    <div class="bento-card-desc">
-                        Every session shows your compatibility. Match measures
-                        skill. Vibes measures reliability. Both update after
-                        every game.
-                    </div>
-                </div>
-
-                <div class="bento-card reveal delay-3">
-                    <div class="bento-card-label">Sessions</div>
-                    <div class="bento-card-title">Auto-expire</div>
-                    <div class="bento-card-desc">
-                        Sessions disappear when the game starts. No stale
-                        listings. Always live.
-                    </div>
-                </div>
-
-                <div class="bento-card reveal delay-4">
-                    <div class="bento-card-label">Explore</div>
-                    <div class="bento-card-title">Live map</div>
-                    <div class="bento-card-desc">
-                        Real-time map of every session near you. Red clusters
-                        for hot spots, green pins for individual games. Tap to
-                        see details and join.
+                    <div class="rating-card">
+                        <div class="rating-badge rating-vibes">Vibes</div>
+                        <h4>Your Reliability</h4>
+                        <p>
+                            We track punctuality, sportsmanship, and energy.
+                            Good reviews from reliable players count more.
+                        </p>
+                        <div class="rating-traits">
+                            <span>Punctuality</span>
+                            <span>Sportsmanship</span>
+                            <span>Energy</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <div class="section-divider"></div>
-        <section class="cta-section" id="waitlist">
-            <div class="cta-container">
-                <p class="overline reveal">Join the Waitlist</p>
-                <h2
-                    class="display-large reveal delay-1"
-                    style="margin-top: 16px;"
-                >
-                    Be first on the field.
+        <!-- Final CTA Section -->
+        <section class="cta-final" id="waitlist">
+            <div class="cta-glow"></div>
+            <div class="cta-content">
+                <h2 class="cta-title reveal">
+                    Ready to <span class="text-gradient">play?</span>
                 </h2>
-                <p class="subhead reveal delay-2" style="margin-top: 16px;">
-                    Get early access when Glid launches in your city. Turn a
-                    lonely Saturday into a match day.
+                <p class="cta-subtitle reveal delay-1">
+                    Join the waitlist. Be first on the field when Glid launches
+                    in your city.
                 </p>
-
-                <div class="reveal delay-3">
+                <div class="cta-form reveal delay-2">
                     <WaitlistForm client:load />
                 </div>
+                <p class="cta-note reveal delay-3">No spam. Just game time.</p>
+            </div>
+
+            <!-- Phone showcase at the bottom -->
+            <div class="cta-phones reveal delay-4">
+                <PhoneMockup
+                    lightSrc="/home-screen-light.png"
+                    darkSrc="/home-screen-dark.PNG"
+                    alt="Glid App"
+                    size="sm"
+                    class="phone-cta-side"
+                />
+                <PhoneMockup
+                    lightSrc="/map-screen-light.PNG"
+                    darkSrc="/Map-screen-dark.PNG"
+                    alt="Live Map"
+                    size="md"
+                    class="phone-cta-center"
+                />
+                <PhoneMockup
+                    lightSrc="/people screen Card not flipped light.PNG"
+                    darkSrc="/people screen card not flipped dark.PNG"
+                    alt="Player Cards"
+                    size="sm"
+                    class="phone-cta-side"
+                />
             </div>
         </section>
     </main>
@@ -382,9 +354,9 @@ import WaitlistForm from "../components/WaitlistForm";
                 />
             </a>
             <div class="footer-links">
-                <a href="#how-it-works" class="footer-link">How It Works</a>
-                <a href="#engine" class="footer-link">Matching</a>
-                <a href="#features" class="footer-link">Features</a>
+                <a href="#discover" class="footer-link">Discover</a>
+                <a href="#play" class="footer-link">Browse</a>
+                <a href="#match" class="footer-link">Match</a>
                 <a href="/privacy" class="footer-link">Privacy</a>
             </div>
             <div class="footer-copy">
@@ -411,16 +383,16 @@ import WaitlistForm from "../components/WaitlistForm";
             },
             {
                 root: null,
-                rootMargin: "0px 0px -60px 0px",
-                threshold: 0.1,
+                rootMargin: "0px 0px -80px 0px",
+                threshold: 0.15,
             },
         );
 
-        document.querySelectorAll(".reveal, .reveal-scale").forEach((el) => {
+        document.querySelectorAll(".reveal").forEach((el) => {
             revealObserver.observe(el);
         });
 
-        // Smooth scroll
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
             anchor.addEventListener("click", function (e) {
                 e.preventDefault();
@@ -435,5 +407,836 @@ import WaitlistForm from "../components/WaitlistForm";
                 }
             });
         });
+
+        // Map pins drop animation on scroll
+        const mapPins = document.querySelectorAll(".map-pin");
+        let pinsDropped = false;
+
+        function dropPins() {
+            if (!pinsDropped && window.scrollY > 50) {
+                pinsDropped = true;
+                mapPins.forEach((pin) => {
+                    pin.classList.add("dropped");
+                });
+            }
+        }
+
+        // Scroll-based scale animation for phones
+        let ticking = false;
+        const storyPhones = document.querySelectorAll(
+            ".story-phone-container .phone-mockup",
+        );
+        const heroPhone = document.querySelector(".hero-phone .phone-mockup");
+
+        function updatePhoneScales() {
+            // Animate story section phones - scale up as they enter viewport
+            storyPhones.forEach((phone) => {
+                const rect = phone.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+
+                // Calculate progress: 0 when at bottom of viewport, 1 when at center
+                const distanceFromCenter =
+                    rect.top + rect.height / 2 - viewportHeight / 2;
+                const progress =
+                    1 -
+                    Math.min(
+                        1,
+                        Math.max(
+                            0,
+                            distanceFromCenter / (viewportHeight * 0.6),
+                        ),
+                    );
+
+                // Scale from 0.8 to 1.05 as it scrolls into view
+                const minScale = 0.8;
+                const maxScale = 1.05;
+                const scale = minScale + progress * (maxScale - minScale);
+
+                // Slight Y offset for parallax feel
+                const offsetY = (1 - progress) * 30;
+
+                phone.style.transform = `scale(${scale}) translateY(${offsetY}px)`;
+                phone.style.opacity = Math.min(1, 0.5 + progress * 0.5);
+            });
+
+            // Hero phone grows slightly as user scrolls down
+            if (heroPhone) {
+                const scrollY = window.scrollY;
+                const maxScroll = 400;
+                const progress = Math.min(1, scrollY / maxScroll);
+                const scale = 1 + progress * 0.15;
+                heroPhone.style.transform = `scale(${scale})`;
+            }
+        }
+
+        window.addEventListener("scroll", () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updatePhoneScales();
+                    dropPins();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial calls
+        updatePhoneScales();
+        dropPins();
+
+        // Flip card interaction
+        const flipCard = document.getElementById("flipCardDemo");
+        if (flipCard) {
+            flipCard.addEventListener("click", () => {
+                flipCard.classList.toggle("flipped");
+            });
+        }
     </script>
 </Layout>
+
+<style>
+    /* ================================================================
+       SCROLL-DRIVEN NARRATIVE LAYOUT
+       ================================================================ */
+
+    /* Hero Split Layout */
+    .hero-split {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 8rem 4rem 4rem;
+        gap: 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .hero-content {
+        animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(5, 150, 105, 0.1);
+        border: 1px solid rgba(5, 150, 105, 0.3);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-pill);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--field);
+        margin-bottom: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 968px) {
+        .hero-badge {
+            margin-top: 2rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .hero-badge {
+            margin-top: 3rem;
+        }
+    }
+
+    .hero-badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--field);
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .display-hero {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        line-height: 1.5;
+    }
+
+    .scroll-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        color: var(--text-tertiary);
+        font-size: 0.875rem;
+    }
+
+    .scroll-arrow {
+        animation: bounce 2s ease-in-out infinite;
+        font-size: 1.25rem;
+    }
+
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(8px);
+        }
+    }
+
+    .hero-phone {
+        display: flex;
+        justify-content: center;
+        animation: fadeInRight 1s ease-out 0.3s both;
+    }
+
+    .phone-with-pins {
+        position: relative;
+    }
+
+    .map-pins {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .map-pin {
+        position: absolute;
+        opacity: 0;
+        transform: translateY(-60px) scale(0.5);
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .map-pin.dropped {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    .pin-icon {
+        width: 36px;
+        height: 36px;
+        background: var(--field);
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+        font-size: 16px;
+    }
+
+    .pin-icon::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        filter: blur(2px);
+    }
+
+    .map-pin .pin-icon > * {
+        transform: rotate(45deg);
+    }
+
+    /* Pin positions - on the map area of the screenshot */
+    .pin-1 {
+        top: 72%;
+        left: 22%;
+    }
+    .pin-2 {
+        top: 68%;
+        left: 50%;
+    }
+    .pin-3 {
+        top: 78%;
+        left: 35%;
+    }
+    .pin-4 {
+        top: 74%;
+        left: 65%;
+    }
+    .pin-5 {
+        top: 82%;
+        left: 55%;
+    }
+
+    /* Staggered animation delays */
+    .pin-1 {
+        transition-delay: 0.1s;
+    }
+    .pin-2 {
+        transition-delay: 0.25s;
+    }
+    .pin-3 {
+        transition-delay: 0.4s;
+    }
+    .pin-4 {
+        transition-delay: 0.55s;
+    }
+    .pin-5 {
+        transition-delay: 0.7s;
+    }
+
+    /* Pin bounce animation after drop */
+    .map-pin.dropped .pin-icon {
+        animation: pinBounce 0.4s ease-out forwards;
+    }
+
+    @keyframes pinBounce {
+        0% {
+            transform: rotate(-45deg) scale(1);
+        }
+        50% {
+            transform: rotate(-45deg) scale(1.15);
+        }
+        100% {
+            transform: rotate(-45deg) scale(1);
+        }
+    }
+
+    /* Different pin colors */
+    .pin-2 .pin-icon {
+        background: var(--clay);
+        box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4);
+    }
+    .pin-4 .pin-icon {
+        background: var(--field-dark);
+    }
+
+    @media (max-width: 968px) {
+        .pin-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .map-pins {
+            display: none;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(40px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* ================================================================
+       STORY SECTIONS
+       ================================================================ */
+
+    .story-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 4rem;
+        position: relative;
+    }
+
+    .story-with-phone {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 4rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .story-reverse {
+        direction: rtl;
+    }
+
+    .story-reverse > * {
+        direction: ltr;
+    }
+
+    .story-centered {
+        text-align: center;
+    }
+
+    .story-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .story-content-wide {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .story-number {
+        font-family: var(--font-display);
+        font-size: 4rem;
+        font-weight: 800;
+        color: var(--field);
+        opacity: 0.15;
+        line-height: 1;
+        margin-bottom: 1rem;
+    }
+
+    .story-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--field);
+        margin-bottom: 0.75rem;
+    }
+
+    .story-headline {
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 1.5rem;
+    }
+
+    .story-text {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .story-text strong {
+        color: var(--text-primary);
+    }
+
+    .story-features {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .feature-tag {
+        padding: 0.5rem 1rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-pill);
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .story-phone-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Score items */
+    .story-scores {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+
+    .score-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .score-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-tertiary);
+    }
+
+    .score-value {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .score-match {
+        color: var(--field);
+    }
+    .score-vibes {
+        color: var(--clay);
+    }
+
+    /* ================================================================
+       FLIP CARD DEMO
+       ================================================================ */
+
+    .flip-card-demo {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        perspective: 1000px;
+        cursor: pointer;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 260px;
+        height: 520px;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+    }
+
+    .flip-card-demo.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flip-card-back {
+        transform: rotateY(180deg);
+    }
+
+    .flip-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.25rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-pill);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        animation: floatHint 3s ease-in-out infinite;
+        transition: opacity 0.3s ease;
+    }
+
+    .flip-card-demo.flipped .flip-hint {
+        opacity: 0.5;
+    }
+
+    .flip-icon {
+        font-size: 1.25rem;
+        animation: rotateHint 2s ease-in-out infinite;
+    }
+
+    @keyframes floatHint {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-6px);
+        }
+    }
+
+    @keyframes rotateHint {
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+        25% {
+            transform: rotate(-15deg);
+        }
+        75% {
+            transform: rotate(15deg);
+        }
+    }
+
+    @media (max-width: 968px) {
+        .flip-card-inner {
+            width: 240px;
+            height: 480px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .flip-card-inner {
+            width: 220px;
+            height: 440px;
+        }
+    }
+
+    /* ================================================================
+       RATINGS GRID
+       ================================================================ */
+
+    .ratings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .rating-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        text-align: left;
+        transition: all 0.3s ease;
+    }
+
+    .rating-card:hover {
+        border-color: var(--field);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .rating-badge {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-pill);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1rem;
+    }
+
+    .rating-match {
+        background: rgba(5, 150, 105, 0.1);
+        color: var(--field);
+    }
+
+    .rating-vibes {
+        background: rgba(234, 88, 12, 0.1);
+        color: var(--clay);
+    }
+
+    .rating-card h4 {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .rating-card p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .rating-traits {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .rating-traits span {
+        padding: 0.375rem 0.75rem;
+        background: var(--surface-secondary);
+        border-radius: var(--radius-pill);
+        font-size: 0.8125rem;
+        font-weight: 500;
+    }
+
+    /* ================================================================
+       FINAL CTA SECTION
+       ================================================================ */
+
+    .cta-final {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 2rem;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .cta-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(
+            circle,
+            rgba(5, 150, 105, 0.15) 0%,
+            transparent 70%
+        );
+        pointer-events: none;
+        animation: ctaPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes ctaPulse {
+        0%,
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.5;
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+        }
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+    }
+
+    .cta-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .cta-form {
+        margin-bottom: 1rem;
+    }
+
+    .cta-note {
+        font-size: 0.875rem;
+        color: var(--text-tertiary);
+    }
+
+    .cta-phones {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 1.5rem;
+        margin-top: 4rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-phones :global(.phone-cta-side) {
+        opacity: 0.6;
+        transform: scale(0.9);
+        transition: all 0.3s ease;
+    }
+
+    .cta-phones :global(.phone-cta-side:hover) {
+        opacity: 0.9;
+        transform: scale(0.95);
+    }
+
+    .cta-phones :global(.phone-cta-center) {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .cta-phones :global(.phone-cta-center:hover) {
+        transform: scale(1.02);
+    }
+
+    /* ================================================================
+       RESPONSIVE
+       ================================================================ */
+
+    @media (max-width: 968px) {
+        .hero-split {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            gap: 2.5rem;
+        }
+
+        .hero-content {
+            order: 1;
+        }
+
+        .hero-phone {
+            order: 2;
+        }
+
+        .scroll-hint {
+            align-items: center;
+        }
+
+        .story-with-phone {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            padding: 3rem 2rem;
+        }
+
+        .story-reverse {
+            direction: ltr;
+        }
+
+        .story-phone-container {
+            order: -1;
+        }
+
+        .story-content {
+            text-align: center;
+        }
+
+        .story-features,
+        .story-scores {
+            justify-content: center;
+        }
+
+        .story-section {
+            padding: 3rem 2rem;
+            min-height: auto;
+        }
+
+        .cta-phones {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .hero-split {
+            padding: 5rem 1.5rem 3rem;
+        }
+
+        .ratings-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cta-phones {
+            display: none;
+        }
+    }
+</style>

@@ -1,0 +1,110 @@
+---
+interface Props {
+    lightSrc: string;
+    darkSrc: string;
+    alt: string;
+    size?: "sm" | "md" | "lg" | "xl";
+    class?: string;
+}
+
+const {
+    lightSrc,
+    darkSrc,
+    alt,
+    size = "md",
+    class: className = "",
+} = Astro.props;
+
+const sizeClasses = {
+    sm: "phone-sm",
+    md: "phone-md",
+    lg: "phone-lg",
+    xl: "phone-xl",
+};
+---
+
+<div class={`phone-mockup ${sizeClasses[size]} ${className}`}>
+    <img src={lightSrc} alt={alt} class="phone-screen screen-light" />
+    <img src={darkSrc} alt={alt} class="phone-screen screen-dark" />
+</div>
+
+<style>
+    .phone-mockup {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition:
+            transform 0.1s ease-out,
+            opacity 0.1s ease-out;
+        will-change: transform, opacity;
+    }
+
+    .phone-screen {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* Theme-based screen visibility - light mode is default */
+    .screen-light {
+        display: block;
+    }
+    .screen-dark {
+        display: none;
+    }
+
+    :global([data-theme="dark"]) .screen-light {
+        display: none;
+    }
+    :global([data-theme="dark"]) .screen-dark {
+        display: block;
+    }
+
+    /* Size variants */
+    .phone-sm {
+        width: 160px;
+    }
+
+    .phone-md {
+        width: 220px;
+    }
+
+    .phone-lg {
+        width: 260px;
+    }
+
+    .phone-xl {
+        width: 300px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 968px) {
+        .phone-sm {
+            width: 140px;
+        }
+        .phone-md {
+            width: 200px;
+        }
+        .phone-lg {
+            width: 240px;
+        }
+        .phone-xl {
+            width: 260px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .phone-sm {
+            width: 120px;
+        }
+        .phone-md {
+            width: 180px;
+        }
+        .phone-lg {
+            width: 220px;
+        }
+        .phone-xl {
+            width: 240px;
+        }
+    }
+</style>
