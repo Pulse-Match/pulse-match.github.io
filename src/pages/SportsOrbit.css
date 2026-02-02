@@ -1,0 +1,95 @@
+.solar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 400px;
+    background: transparent;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+}
+
+.center-hub-center {
+    width: 80px;
+    height: 80px;
+    background: var(--surface);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+[data-theme="dark"] .center-hub-center {
+    background: rgba(38, 38, 38, 0.8);
+    backdrop-filter: blur(12px);
+    border-color: var(--field);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.orbit-system-rotating {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.sport-item {
+    user-select: none;
+    z-index: 10;
+}
+
+.emoji-wrapper {
+    width: 52px;
+    height: 52px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+[data-theme="dark"] .emoji-wrapper {
+    background: rgba(38, 38, 38, 0.7);
+    backdrop-filter: blur(8px);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.orbit-ring {
+    position: absolute;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-ring.outer {
+    width: 280px;
+    height: 280px;
+    border-style: dashed;
+}
+
+.orbit-ring.inner {
+    width: 160px;
+    height: 160px;
+    border-style: solid;
+    opacity: 0.1;
+}

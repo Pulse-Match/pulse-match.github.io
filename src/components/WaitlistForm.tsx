@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../lib/firebase";
+import confetti from 'canvas-confetti';
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function WaitlistForm() {
+export function WaitlistForm({ variant = "default" }: { variant?: "default" | "compact" }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,9 +25,18 @@ export function WaitlistForm() {
       await addDoc(collection(db, "waitlist"), {
         email,
         createdAt: serverTimestamp(),
-        source: "landing-page",
+        source: variant === "compact" ? "nav-header" : "landing-page",
       });
       setStatus("success");
+      setEmail("");
+
+      // Celebrate with confetti!
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#059669', '#10b981', '#ffffff', '#ea580c']
+      });
     } catch (error) {
       console.error("Firebase Error:", error);
       setStatus("error");
@@ -35,35 +45,38 @@ export function WaitlistForm() {
         firebaseError.code === "permission-denied"
           ? "Database permission error. Please check Firestore rules."
           : "Something went wrong: " +
-              (firebaseError.message || "Unknown error"),
+          (firebaseError.message || "Unknown error"),
       );
     }
   };
 
   if (status === "success") {
     return (
-      <div className="waitlist-success">
+      <div className={`waitlist-success ${variant === "compact" ? "waitlist-success-compact" : ""}`}>
         <span className="waitlist-success-icon">&#10003;</span>
-        <div>
-          <h3>You're on the list!</h3>
-          <p>We'll notify you when Glid launches in your city.</p>
-        </div>
+        {variant !== "compact" && (
+          <div>
+            <h3>You're on the list!</h3>
+            <p>We'll notify you when Glid launches in your city.</p>
+          </div>
+        )}
+        {variant === "compact" && <span>Success!</span>}
       </div>
     );
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="waitlist-form">
+    <div className={variant === "compact" ? "waitlist-compact-container" : ""}>
+      <form onSubmit={handleSubmit} className={`waitlist-form ${variant === "compact" ? "waitlist-form-compact" : ""}`}>
         <input
           type="email"
-          placeholder="Enter your email address"
+          placeholder={variant === "compact" ? "Email address" : "Enter your email address"}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <button type="submit" disabled={status === "submitting"}>
-          {status === "submitting" ? "Joining..." : "Join Waitlist"}
+          {status === "submitting" ? (variant === "compact" ? "..." : "Joining...") : (variant === "compact" ? "Join" : "Join Waitlist")}
         </button>
       </form>
 

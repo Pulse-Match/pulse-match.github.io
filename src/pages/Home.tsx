@@ -4,6 +4,8 @@ import { PhoneMockup } from "../components/PhoneMockup";
 import { WaitlistForm } from "../components/WaitlistForm";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import "./Home.css";
+import MockupInteractive from "./MockUpInteractive";
+import SolarSports from "./SportsOrbit";
 
 export function Home() {
   const containerRef = useScrollReveal();
@@ -74,6 +76,9 @@ export function Home() {
                 <br />
                 Just <span className="text-gradient">Play.</span>
               </h1>
+              <div className="hero-cta reveal delay-1">
+                <WaitlistForm />
+              </div>
               <p className="hero-subtitle">
                 The app that turns "anyone free?" into game time.
               </p>
@@ -121,9 +126,12 @@ export function Home() {
               </div>
             </div>
           </section>
-
+          {/* <MockupHome /> */}
           {/* Scroll Story Section 1: The Problem */}
-          <section className="story-section" id="problem">
+          <section className="story-section story-with-phone story-reverse" id="problem">
+            <div className="story-phone-container">
+              <SolarSports />
+            </div>
             <div className="story-content">
               <div className="story-number">01</div>
               <h2 className="story-title reveal">The Problem</h2>
@@ -169,18 +177,14 @@ export function Home() {
             </div>
           </section>
 
+
           {/* Scroll Story Section 3: Browse Sessions */}
           <section
             className="story-section story-with-phone story-reverse"
             id="play"
           >
             <div className="story-phone-container">
-              <PhoneMockup
-                lightSrc="/plays-list-light.PNG"
-                darkSrc="/plays-list-dark.PNG"
-                alt="Sessions List"
-                size="lg"
-              />
+              <MockupInteractive />
             </div>
             <div className="story-content">
               <div className="story-number">03</div>

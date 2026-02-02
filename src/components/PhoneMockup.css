@@ -10,7 +10,7 @@
 
 .phone-screen {
   width: 100%;
-  height: auto;
+  height: 457px;
   object-fit: contain;
 }
 
@@ -18,6 +18,7 @@
 .screen-light {
   display: block;
 }
+
 .screen-dark {
   display: none;
 }
@@ -25,54 +26,61 @@
 [data-theme="dark"] .screen-light {
   display: none;
 }
+
 [data-theme="dark"] .screen-dark {
   display: block;
 }
 
 /* Size variants */
 .phone-sm {
-  width: 160px;
+  width: 180px;
 }
 
 .phone-md {
-  width: 220px;
+  width: 240px;
 }
 
 .phone-lg {
-  width: 260px;
+  width: 300px;
 }
 
 .phone-xl {
-  width: 300px;
+  width: 360px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 968px) {
   .phone-sm {
-    width: 140px;
+    width: 160px;
   }
+
   .phone-md {
-    width: 200px;
+    width: 220px;
   }
+
   .phone-lg {
-    width: 240px;
-  }
-  .phone-xl {
     width: 260px;
+  }
+
+  .phone-xl {
+    width: 300px;
   }
 }
 
 @media (max-width: 640px) {
   .phone-sm {
-    width: 120px;
+    width: 140px;
   }
+
   .phone-md {
-    width: 180px;
+    width: 200px;
   }
+
   .phone-lg {
-    width: 220px;
-  }
-  .phone-xl {
     width: 240px;
+  }
+
+  .phone-xl {
+    width: 280px;
   }
 }
