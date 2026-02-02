@@ -119,18 +119,23 @@ export function SocialPosts() {
     if (!exportRef.current) return;
 
     setIsExporting(true);
+
+    // Store original transform and temporarily reset for export
+    const element = exportRef.current;
+    const originalTransform = element.style.transform;
+
     try {
-      // Use filter to skip external images that might cause CORS issues
-      const dataUrl = await toPng(exportRef.current, {
+      // Reset transform for full-size capture
+      element.style.transform = "scale(1)";
+
+      const dataUrl = await toPng(element, {
         cacheBust: true,
+        width: dims.width,
+        height: dims.height,
         pixelRatio: 1,
-        skipFonts: true,
-        filter: (node) => {
-          // Skip any node that might cause issues
-          if (node instanceof HTMLImageElement) {
-            return true; // Include images but they'll be handled
-          }
-          return true;
+        style: {
+          transform: "scale(1)",
+          transformOrigin: "top left",
         },
       });
 
@@ -139,7 +144,7 @@ export function SocialPosts() {
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error("Failed to export:", err);
+      console.error("Failed to export with html-to-image:", err);
       // Try alternative approach with canvas
       try {
         await exportWithCanvas();
@@ -148,9 +153,11 @@ export function SocialPosts() {
         alert("Failed to export image. Please try again.");
       }
     } finally {
+      // Restore original transform
+      element.style.transform = originalTransform;
       setIsExporting(false);
     }
-  }, [config.platform, config.template, dims]);
+  }, [config.platform, config.template, dims, previewScale]);
 
   const exportWithCanvas = async () => {
     const canvas = document.createElement("canvas");
