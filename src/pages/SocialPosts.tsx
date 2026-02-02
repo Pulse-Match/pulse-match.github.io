@@ -493,36 +493,20 @@ export function SocialPosts() {
                 {/* Logo */}
                 {config.showLogo && (
                   <div className="post-logo">
-                    <svg
-                      width="60"
-                      height="60"
-                      viewBox="0 0 100 100"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M50 5C25.2 5 5 25.2 5 50s20.2 45 45 45c12.4 0 23.7-5 31.8-13.2L50 50V5z"
-                        fill={
+                    <div
+                      className="logo-text"
+                      style={{
+                        fontFamily: "'Outfit', sans-serif",
+                        fontSize: "72px",
+                        fontWeight: 800,
+                        color:
                           config.backgroundColor === "sand"
                             ? "#1c1917"
-                            : "#ffffff"
-                        }
-                      />
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="15"
-                        fill={
-                          config.backgroundColor === "sand"
-                            ? "#fffbeb"
-                            : config.backgroundColor === "field"
-                              ? "#059669"
-                              : config.backgroundColor === "dark"
-                                ? "#1c1917"
-                                : "#059669"
-                        }
-                      />
-                    </svg>
+                            : "#ffffff",
+                      }}
+                    >
+                      g
+                    </div>
                   </div>
                 )}
 
