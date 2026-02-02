@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { toPng } from 'html-to-image';
-import { useTheme } from '../hooks/useTheme';
-import './SocialPosts.css';
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { toPng } from "html-to-image";
+import { useTheme } from "../hooks/useTheme";
+import "./SocialPosts.css";
 
-type Platform = 'instagram-square' | 'instagram-story' | 'twitter' | 'linkedin';
-type Template = 'announcement' | 'feature' | 'quote' | 'stats' | 'cta';
+type Platform = "instagram-square" | "instagram-story" | "twitter" | "linkedin";
+type Template = "announcement" | "feature" | "quote" | "stats" | "cta";
 
 interface PostConfig {
   platform: Platform;
@@ -14,70 +14,94 @@ interface PostConfig {
   subheadline: string;
   bodyText: string;
   ctaText: string;
-  backgroundColor: 'sand' | 'field' | 'dark' | 'gradient';
+  backgroundColor: "sand" | "field" | "dark" | "gradient";
   showLogo: boolean;
   showBadge: boolean;
 }
 
-const platformDimensions: Record<Platform, { width: number; height: number; label: string }> = {
-  'instagram-square': { width: 1080, height: 1080, label: 'Instagram Square' },
-  'instagram-story': { width: 1080, height: 1920, label: 'Instagram Story' },
-  'twitter': { width: 1200, height: 675, label: 'Twitter/X' },
-  'linkedin': { width: 1200, height: 627, label: 'LinkedIn' },
+const platformDimensions: Record<
+  Platform,
+  { width: number; height: number; label: string }
+> = {
+  "instagram-square": { width: 1080, height: 1080, label: "Instagram Square" },
+  "instagram-story": { width: 1080, height: 1920, label: "Instagram Story" },
+  twitter: { width: 1200, height: 675, label: "Twitter/X" },
+  linkedin: { width: 1200, height: 627, label: "LinkedIn" },
 };
 
 const templateDefaults: Record<Template, Partial<PostConfig>> = {
   announcement: {
-    headline: 'Big News!',
-    subheadline: 'Glid is launching in 2026',
+    headline: "Big News!",
+    subheadline: "Glid is launching in 2026",
     bodyText: 'The app that turns "anyone free?" into game time.',
-    ctaText: 'Join the waitlist at glid-app.com',
+    ctaText: "Join the waitlist at glid-app.com",
   },
   feature: {
-    headline: 'Find Games Near You',
-    subheadline: 'Real-time sports sessions on your map',
-    bodyText: 'Tennis at the park. Basketball downtown. Pickleball at noon.',
-    ctaText: 'Coming soon',
+    headline: "Find Games Near You",
+    subheadline: "Real-time sports sessions on your map",
+    bodyText: "Tennis at the park. Basketball downtown. Pickleball at noon.",
+    ctaText: "Coming soon",
   },
   quote: {
     headline: '"Stop Planning, Just Play"',
-    subheadline: '',
-    bodyText: 'Finding people to play with shouldn\'t be harder than the game itself.',
-    ctaText: 'glid-app.com',
+    subheadline: "",
+    bodyText:
+      "Finding people to play with shouldn't be harder than the game itself.",
+    ctaText: "glid-app.com",
   },
   stats: {
-    headline: '2 Ratings',
-    subheadline: 'Zero Guesswork',
-    bodyText: 'Match Score for skill. Vibes Score for reliability. Every game counts.',
-    ctaText: 'Learn more at glid-app.com',
+    headline: "2 Ratings",
+    subheadline: "Zero Guesswork",
+    bodyText:
+      "Match Score for skill. Vibes Score for reliability. Every game counts.",
+    ctaText: "Learn more at glid-app.com",
   },
   cta: {
-    headline: 'Ready to Play?',
-    subheadline: 'Join the waitlist',
-    bodyText: 'Be first on the field when Glid launches in your city.',
-    ctaText: 'glid-app.com',
+    headline: "Ready to Play?",
+    subheadline: "Join the waitlist",
+    bodyText: "Be first on the field when Glid launches in your city.",
+    ctaText: "glid-app.com",
   },
 };
 
 export function SocialPosts() {
   useTheme();
   const postRef = useRef<HTMLDivElement>(null);
+  const previewContainerRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [previewScale, setPreviewScale] = useState(0.5);
 
   const [config, setConfig] = useState<PostConfig>({
-    platform: 'instagram-square',
-    template: 'announcement',
+    platform: "instagram-square",
+    template: "announcement",
     headline: templateDefaults.announcement.headline!,
     subheadline: templateDefaults.announcement.subheadline!,
     bodyText: templateDefaults.announcement.bodyText!,
     ctaText: templateDefaults.announcement.ctaText!,
-    backgroundColor: 'sand',
+    backgroundColor: "sand",
     showLogo: true,
     showBadge: true,
   });
 
+  const dims = platformDimensions[config.platform];
+
+  // Calculate scale to fit preview container
+  useEffect(() => {
+    const calculateScale = () => {
+      if (!previewContainerRef.current) return;
+      const containerWidth = previewContainerRef.current.offsetWidth;
+      const maxPreviewWidth = Math.min(containerWidth - 40, 500); // padding and max width
+      const scale = maxPreviewWidth / dims.width;
+      setPreviewScale(Math.min(scale, 0.6)); // Cap at 60%
+    };
+
+    calculateScale();
+    window.addEventListener("resize", calculateScale);
+    return () => window.removeEventListener("resize", calculateScale);
+  }, [dims.width, config.platform]);
+
   const updateConfig = (updates: Partial<PostConfig>) => {
-    setConfig(prev => ({ ...prev, ...updates }));
+    setConfig((prev) => ({ ...prev, ...updates }));
   };
 
   const applyTemplate = (template: Template) => {
@@ -96,32 +120,31 @@ export function SocialPosts() {
 
     setIsExporting(true);
     try {
-      const dims = platformDimensions[config.platform];
       const dataUrl = await toPng(postRef.current, {
         width: dims.width,
         height: dims.height,
-        pixelRatio: 2,
+        pixelRatio: 1,
         style: {
-          transform: 'scale(1)',
-          transformOrigin: 'top left',
+          transform: "scale(1)",
+          transformOrigin: "top left",
+          width: `${dims.width}px`,
+          height: `${dims.height}px`,
         },
       });
 
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.download = `glid-${config.platform}-${config.template}-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error('Failed to export:', err);
-      alert('Failed to export image. Please try again.');
+      console.error("Failed to export:", err);
+      alert("Failed to export image. Please try again.");
     } finally {
       setIsExporting(false);
     }
   };
 
-  const dims = platformDimensions[config.platform];
-  const aspectRatio = dims.width / dims.height;
-  const isStory = config.platform === 'instagram-story';
+  const isStory = config.platform === "instagram-story";
 
   return (
     <>
@@ -130,12 +153,24 @@ export function SocialPosts() {
       <nav>
         <div className="nav-inner">
           <Link to="/" className="logo">
-            <img src="/glid-logo-white.png" alt="Glid" className="logo-svg logo-dark" />
-            <img src="/glid-logo-black.png" alt="Glid" className="logo-svg logo-light" />
+            <img
+              src="/glid-logo-white.png"
+              alt="Glid"
+              className="logo-svg logo-dark"
+            />
+            <img
+              src="/glid-logo-black.png"
+              alt="Glid"
+              className="logo-svg logo-light"
+            />
           </Link>
           <div className="nav-actions">
-            <Link to="/brand" className="btn-ghost">Brand Guidelines</Link>
-            <Link to="/" className="btn-ghost">&larr; Home</Link>
+            <Link to="/brand" className="btn-ghost">
+              Brand Guidelines
+            </Link>
+            <Link to="/" className="btn-ghost">
+              &larr; Home
+            </Link>
           </div>
         </div>
       </nav>
@@ -143,7 +178,9 @@ export function SocialPosts() {
       <main className="social-posts-page">
         <header className="social-header">
           <h1 className="display-large">Social Media Posts</h1>
-          <p className="subhead">Create and download branded posts for social media</p>
+          <p className="subhead">
+            Create and download branded posts for social media
+          </p>
         </header>
 
         <div className="social-workspace">
@@ -152,31 +189,37 @@ export function SocialPosts() {
             <section className="control-section">
               <h3>Platform</h3>
               <div className="button-group">
-                {(Object.keys(platformDimensions) as Platform[]).map(platform => (
-                  <button
-                    key={platform}
-                    className={`control-btn ${config.platform === platform ? 'active' : ''}`}
-                    onClick={() => updateConfig({ platform })}
-                  >
-                    {platformDimensions[platform].label}
-                  </button>
-                ))}
+                {(Object.keys(platformDimensions) as Platform[]).map(
+                  (platform) => (
+                    <button
+                      key={platform}
+                      className={`control-btn ${config.platform === platform ? "active" : ""}`}
+                      onClick={() => updateConfig({ platform })}
+                    >
+                      {platformDimensions[platform].label}
+                    </button>
+                  ),
+                )}
               </div>
-              <p className="dimension-info">{dims.width} x {dims.height}px</p>
+              <p className="dimension-info">
+                {dims.width} x {dims.height}px
+              </p>
             </section>
 
             <section className="control-section">
               <h3>Template</h3>
               <div className="button-group">
-                {(Object.keys(templateDefaults) as Template[]).map(template => (
-                  <button
-                    key={template}
-                    className={`control-btn ${config.template === template ? 'active' : ''}`}
-                    onClick={() => applyTemplate(template)}
-                  >
-                    {template.charAt(0).toUpperCase() + template.slice(1)}
-                  </button>
-                ))}
+                {(Object.keys(templateDefaults) as Template[]).map(
+                  (template) => (
+                    <button
+                      key={template}
+                      className={`control-btn ${config.template === template ? "active" : ""}`}
+                      onClick={() => applyTemplate(template)}
+                    >
+                      {template.charAt(0).toUpperCase() + template.slice(1)}
+                    </button>
+                  ),
+                )}
               </div>
             </section>
 
@@ -184,23 +227,23 @@ export function SocialPosts() {
               <h3>Background</h3>
               <div className="color-buttons">
                 <button
-                  className={`color-btn color-sand ${config.backgroundColor === 'sand' ? 'active' : ''}`}
-                  onClick={() => updateConfig({ backgroundColor: 'sand' })}
+                  className={`color-btn color-sand ${config.backgroundColor === "sand" ? "active" : ""}`}
+                  onClick={() => updateConfig({ backgroundColor: "sand" })}
                   title="Sand"
                 />
                 <button
-                  className={`color-btn color-field ${config.backgroundColor === 'field' ? 'active' : ''}`}
-                  onClick={() => updateConfig({ backgroundColor: 'field' })}
+                  className={`color-btn color-field ${config.backgroundColor === "field" ? "active" : ""}`}
+                  onClick={() => updateConfig({ backgroundColor: "field" })}
                   title="Field"
                 />
                 <button
-                  className={`color-btn color-dark ${config.backgroundColor === 'dark' ? 'active' : ''}`}
-                  onClick={() => updateConfig({ backgroundColor: 'dark' })}
+                  className={`color-btn color-dark ${config.backgroundColor === "dark" ? "active" : ""}`}
+                  onClick={() => updateConfig({ backgroundColor: "dark" })}
                   title="Dark"
                 />
                 <button
-                  className={`color-btn color-gradient ${config.backgroundColor === 'gradient' ? 'active' : ''}`}
-                  onClick={() => updateConfig({ backgroundColor: 'gradient' })}
+                  className={`color-btn color-gradient ${config.backgroundColor === "gradient" ? "active" : ""}`}
+                  onClick={() => updateConfig({ backgroundColor: "gradient" })}
                   title="Gradient"
                 />
               </div>
@@ -213,7 +256,7 @@ export function SocialPosts() {
                 <input
                   type="text"
                   value={config.headline}
-                  onChange={e => updateConfig({ headline: e.target.value })}
+                  onChange={(e) => updateConfig({ headline: e.target.value })}
                   placeholder="Main headline"
                 />
               </div>
@@ -222,7 +265,9 @@ export function SocialPosts() {
                 <input
                   type="text"
                   value={config.subheadline}
-                  onChange={e => updateConfig({ subheadline: e.target.value })}
+                  onChange={(e) =>
+                    updateConfig({ subheadline: e.target.value })
+                  }
                   placeholder="Secondary text"
                 />
               </div>
@@ -230,7 +275,7 @@ export function SocialPosts() {
                 <label>Body Text</label>
                 <textarea
                   value={config.bodyText}
-                  onChange={e => updateConfig({ bodyText: e.target.value })}
+                  onChange={(e) => updateConfig({ bodyText: e.target.value })}
                   placeholder="Body content"
                   rows={3}
                 />
@@ -240,7 +285,7 @@ export function SocialPosts() {
                 <input
                   type="text"
                   value={config.ctaText}
-                  onChange={e => updateConfig({ ctaText: e.target.value })}
+                  onChange={(e) => updateConfig({ ctaText: e.target.value })}
                   placeholder="Call to action"
                 />
               </div>
@@ -252,7 +297,7 @@ export function SocialPosts() {
                 <input
                   type="checkbox"
                   checked={config.showLogo}
-                  onChange={e => updateConfig({ showLogo: e.target.checked })}
+                  onChange={(e) => updateConfig({ showLogo: e.target.checked })}
                 />
                 Show Logo
               </label>
@@ -260,7 +305,9 @@ export function SocialPosts() {
                 <input
                   type="checkbox"
                   checked={config.showBadge}
-                  onChange={e => updateConfig({ showBadge: e.target.checked })}
+                  onChange={(e) =>
+                    updateConfig({ showBadge: e.target.checked })
+                  }
                 />
                 Show "Launching 2026" Badge
               </label>
@@ -271,15 +318,18 @@ export function SocialPosts() {
               onClick={handleDownload}
               disabled={isExporting}
             >
-              {isExporting ? 'Exporting...' : 'Download PNG'}
+              {isExporting ? "Exporting..." : "Download PNG"}
             </button>
           </aside>
 
           {/* Preview Panel */}
-          <div className="preview-panel">
+          <div className="preview-panel" ref={previewContainerRef}>
             <div
-              className={`preview-container ${isStory ? 'story-preview' : ''}`}
-              style={{ aspectRatio: aspectRatio }}
+              className={`preview-wrapper ${isStory ? "story-preview" : ""}`}
+              style={{
+                width: dims.width * previewScale,
+                height: dims.height * previewScale,
+              }}
             >
               <div
                 ref={postRef}
@@ -287,13 +337,19 @@ export function SocialPosts() {
                 style={{
                   width: dims.width,
                   height: dims.height,
+                  transform: `scale(${previewScale})`,
+                  transformOrigin: "top left",
                 }}
               >
                 {/* Logo */}
                 {config.showLogo && (
                   <div className="post-logo">
                     <img
-                      src={config.backgroundColor === 'sand' ? '/glid-logo-black.png' : '/glid-logo-white.png'}
+                      src={
+                        config.backgroundColor === "sand"
+                          ? "/glid-logo-black.png"
+                          : "/glid-logo-white.png"
+                      }
                       alt="Glid"
                     />
                   </div>
@@ -301,26 +357,36 @@ export function SocialPosts() {
 
                 {/* Badge */}
                 {config.showBadge && (
-                  <div className={`post-badge ${config.backgroundColor === 'sand' ? 'badge-dark' : 'badge-light'}`}>
+                  <div
+                    className={`post-badge ${config.backgroundColor === "sand" ? "badge-dark" : "badge-light"}`}
+                  >
                     <span className="badge-dot"></span>
                     Launching 2026
                   </div>
                 )}
 
                 {/* Content */}
-                <div className={`post-content ${isStory ? 'story-content' : ''}`}>
+                <div
+                  className={`post-content ${isStory ? "story-content" : ""}`}
+                >
                   {config.headline && (
-                    <h1 className={`post-headline ${config.backgroundColor === 'sand' ? 'text-dark' : 'text-light'}`}>
+                    <h1
+                      className={`post-headline ${config.backgroundColor === "sand" ? "text-dark" : "text-light"}`}
+                    >
                       {config.headline}
                     </h1>
                   )}
                   {config.subheadline && (
-                    <h2 className={`post-subheadline ${config.backgroundColor === 'sand' ? 'text-dark' : 'text-light'}`}>
+                    <h2
+                      className={`post-subheadline ${config.backgroundColor === "sand" ? "text-dark" : "text-light"}`}
+                    >
                       {config.subheadline}
                     </h2>
                   )}
                   {config.bodyText && (
-                    <p className={`post-body ${config.backgroundColor === 'sand' ? 'text-dark-muted' : 'text-light-muted'}`}>
+                    <p
+                      className={`post-body ${config.backgroundColor === "sand" ? "text-dark-muted" : "text-light-muted"}`}
+                    >
                       {config.bodyText}
                     </p>
                   )}
@@ -328,7 +394,9 @@ export function SocialPosts() {
 
                 {/* CTA */}
                 {config.ctaText && (
-                  <div className={`post-cta ${config.backgroundColor === 'sand' ? 'cta-dark' : 'cta-light'}`}>
+                  <div
+                    className={`post-cta ${config.backgroundColor === "sand" ? "cta-dark" : "cta-light"}`}
+                  >
                     {config.ctaText}
                   </div>
                 )}
@@ -340,7 +408,10 @@ export function SocialPosts() {
                 </div>
               </div>
             </div>
-            <p className="preview-note">Preview scaled to fit. Download will be full resolution.</p>
+            <p className="preview-note">
+              Preview scaled to fit. Download will be full resolution (
+              {dims.width} x {dims.height}px).
+            </p>
           </div>
         </div>
       </main>
