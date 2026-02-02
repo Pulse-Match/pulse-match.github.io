@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="Glid matches you with live sports sessions — not profiles. Swipe, match, play."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Glid — Stop Planning, Just Play</title>
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="Glid — Stop Planning, Just Play" />
+        <meta
+            property="og:description"
+            content="Glid matches you with live sports sessions — not profiles. Swipe, match, play."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/og-image.png" />
+
+        <!-- Fonts - Brand Identity Typography (Outfit) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Theme initialization script (prevents flash) -->
+        <script>
+            (function () {
+                const html = document.documentElement;
+                const savedTheme = localStorage.getItem("theme");
+                const systemDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)",
+                ).matches;
+                if (savedTheme) {
+                    html.setAttribute("data-theme", savedTheme);
+                } else if (systemDark) {
+                    html.setAttribute("data-theme", "dark");
+                } else {
+                    html.setAttribute("data-theme", "light");
+                }
+            })();
+        </script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
+</html>

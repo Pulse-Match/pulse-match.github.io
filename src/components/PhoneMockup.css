@@ -1,0 +1,78 @@
+.phone-mockup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    transform 0.1s ease-out,
+    opacity 0.1s ease-out;
+  will-change: transform, opacity;
+}
+
+.phone-screen {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Theme-based screen visibility - light mode is default */
+.screen-light {
+  display: block;
+}
+.screen-dark {
+  display: none;
+}
+
+[data-theme="dark"] .screen-light {
+  display: none;
+}
+[data-theme="dark"] .screen-dark {
+  display: block;
+}
+
+/* Size variants */
+.phone-sm {
+  width: 160px;
+}
+
+.phone-md {
+  width: 220px;
+}
+
+.phone-lg {
+  width: 260px;
+}
+
+.phone-xl {
+  width: 300px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 968px) {
+  .phone-sm {
+    width: 140px;
+  }
+  .phone-md {
+    width: 200px;
+  }
+  .phone-lg {
+    width: 240px;
+  }
+  .phone-xl {
+    width: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .phone-sm {
+    width: 120px;
+  }
+  .phone-md {
+    width: 180px;
+  }
+  .phone-lg {
+    width: 220px;
+  }
+  .phone-xl {
+    width: 240px;
+  }
+}
