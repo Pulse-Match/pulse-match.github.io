@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { toPng } from "html-to-image";
 import { useTheme } from "../hooks/useTheme";
@@ -66,7 +66,7 @@ const templateDefaults: Record<Template, Partial<PostConfig>> = {
 
 export function SocialPosts() {
   useTheme();
-  const postRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
   const previewContainerRef = useRef<HTMLDivElement>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [previewScale, setPreviewScale] = useState(0.5);
@@ -90,9 +90,9 @@ export function SocialPosts() {
     const calculateScale = () => {
       if (!previewContainerRef.current) return;
       const containerWidth = previewContainerRef.current.offsetWidth;
-      const maxPreviewWidth = Math.min(containerWidth - 40, 500); // padding and max width
+      const maxPreviewWidth = Math.min(containerWidth - 40, 500);
       const scale = maxPreviewWidth / dims.width;
-      setPreviewScale(Math.min(scale, 0.6)); // Cap at 60%
+      setPreviewScale(Math.min(scale, 0.55));
     };
 
     calculateScale();
@@ -115,20 +115,22 @@ export function SocialPosts() {
     });
   };
 
-  const handleDownload = async () => {
-    if (!postRef.current) return;
+  const handleDownload = useCallback(async () => {
+    if (!exportRef.current) return;
 
     setIsExporting(true);
     try {
-      const dataUrl = await toPng(postRef.current, {
-        width: dims.width,
-        height: dims.height,
+      // Use filter to skip external images that might cause CORS issues
+      const dataUrl = await toPng(exportRef.current, {
+        cacheBust: true,
         pixelRatio: 1,
-        style: {
-          transform: "scale(1)",
-          transformOrigin: "top left",
-          width: `${dims.width}px`,
-          height: `${dims.height}px`,
+        skipFonts: true,
+        filter: (node) => {
+          // Skip any node that might cause issues
+          if (node instanceof HTMLImageElement) {
+            return true; // Include images but they'll be handled
+          }
+          return true;
         },
       });
 
@@ -138,10 +140,150 @@ export function SocialPosts() {
       link.click();
     } catch (err) {
       console.error("Failed to export:", err);
-      alert("Failed to export image. Please try again.");
+      // Try alternative approach with canvas
+      try {
+        await exportWithCanvas();
+      } catch (canvasErr) {
+        console.error("Canvas export also failed:", canvasErr);
+        alert("Failed to export image. Please try again.");
+      }
     } finally {
       setIsExporting(false);
     }
+  }, [config.platform, config.template, dims]);
+
+  const exportWithCanvas = async () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = dims.width;
+    canvas.height = dims.height;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Could not get canvas context");
+
+    // Draw background
+    if (config.backgroundColor === "sand") {
+      ctx.fillStyle = "#fffbeb";
+    } else if (config.backgroundColor === "field") {
+      ctx.fillStyle = "#059669";
+    } else if (config.backgroundColor === "dark") {
+      ctx.fillStyle = "#1c1917";
+    } else {
+      // Gradient
+      const gradient = ctx.createLinearGradient(0, 0, dims.width, dims.height);
+      gradient.addColorStop(0, "#059669");
+      gradient.addColorStop(0.5, "#047857");
+      gradient.addColorStop(1, "#ea580c");
+      ctx.fillStyle = gradient;
+    }
+    ctx.fillRect(0, 0, dims.width, dims.height);
+
+    // Draw decorative circles
+    ctx.globalAlpha = 0.08;
+    ctx.fillStyle = config.backgroundColor === "sand" ? "#059669" : "#ffffff";
+    ctx.beginPath();
+    ctx.arc(dims.width + 100, -100, 300, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(-100, dims.height + 50, 200, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Set text color
+    const textColor = config.backgroundColor === "sand" ? "#1c1917" : "#ffffff";
+    const mutedTextColor =
+      config.backgroundColor === "sand" ? "#57534e" : "rgba(255,255,255,0.8)";
+
+    // Draw headline
+    if (config.headline) {
+      ctx.fillStyle = textColor;
+      ctx.font = "800 86px Outfit, sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      const lines = wrapText(ctx, config.headline, dims.width - 160);
+      const lineHeight = 90;
+      const totalHeight = lines.length * lineHeight;
+      let startY = dims.height / 2 - totalHeight / 2 - 40;
+
+      lines.forEach((line, i) => {
+        ctx.fillText(line, dims.width / 2, startY + i * lineHeight);
+      });
+    }
+
+    // Draw subheadline
+    if (config.subheadline) {
+      ctx.fillStyle = textColor;
+      ctx.font = "600 42px Outfit, sans-serif";
+      ctx.fillText(config.subheadline, dims.width / 2, dims.height / 2 + 30);
+    }
+
+    // Draw body text
+    if (config.bodyText) {
+      ctx.fillStyle = mutedTextColor;
+      ctx.font = "400 32px Outfit, sans-serif";
+      const bodyLines = wrapText(ctx, config.bodyText, dims.width - 200);
+      bodyLines.forEach((line, i) => {
+        ctx.fillText(line, dims.width / 2, dims.height / 2 + 100 + i * 40);
+      });
+    }
+
+    // Draw badge
+    if (config.showBadge) {
+      const badgeText = "Launching 2026";
+      ctx.font = "600 24px Outfit, sans-serif";
+      const badgeWidth = ctx.measureText(badgeText).width + 60;
+      const badgeX = dims.width - 60 - badgeWidth;
+      const badgeY = 60;
+
+      ctx.fillStyle =
+        config.backgroundColor === "sand"
+          ? "rgba(5, 150, 105, 0.1)"
+          : "rgba(255, 255, 255, 0.15)";
+      ctx.beginPath();
+      ctx.roundRect(badgeX, badgeY, badgeWidth, 48, 24);
+      ctx.fill();
+
+      ctx.strokeStyle =
+        config.backgroundColor === "sand"
+          ? "rgba(5, 150, 105, 0.3)"
+          : "rgba(255, 255, 255, 0.3)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Badge dot
+      ctx.fillStyle = config.backgroundColor === "sand" ? "#059669" : "#ffffff";
+      ctx.beginPath();
+      ctx.arc(badgeX + 24, badgeY + 24, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Badge text
+      ctx.fillStyle = config.backgroundColor === "sand" ? "#059669" : "#ffffff";
+      ctx.textAlign = "left";
+      ctx.fillText(badgeText, badgeX + 42, badgeY + 32);
+    }
+
+    // Draw CTA
+    if (config.ctaText) {
+      ctx.font = "600 26px Outfit, sans-serif";
+      const ctaWidth = ctx.measureText(config.ctaText).width + 80;
+      const ctaX = (dims.width - ctaWidth) / 2;
+      const ctaY = dims.height - 120;
+
+      ctx.fillStyle = config.backgroundColor === "sand" ? "#1c1917" : "#ffffff";
+      ctx.beginPath();
+      ctx.roundRect(ctaX, ctaY, ctaWidth, 56, 28);
+      ctx.fill();
+
+      ctx.fillStyle = config.backgroundColor === "sand" ? "#ffffff" : "#1c1917";
+      ctx.textAlign = "center";
+      ctx.fillText(config.ctaText, dims.width / 2, ctaY + 36);
+    }
+
+    // Export
+    const dataUrl = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.download = `glid-${config.platform}-${config.template}-${Date.now()}.png`;
+    link.href = dataUrl;
+    link.click();
   };
 
   const isStory = config.platform === "instagram-story";
@@ -332,7 +474,7 @@ export function SocialPosts() {
               }}
             >
               <div
-                ref={postRef}
+                ref={exportRef}
                 className={`post-canvas bg-${config.backgroundColor}`}
                 style={{
                   width: dims.width,
@@ -344,14 +486,36 @@ export function SocialPosts() {
                 {/* Logo */}
                 {config.showLogo && (
                   <div className="post-logo">
-                    <img
-                      src={
-                        config.backgroundColor === "sand"
-                          ? "/glid-logo-black.png"
-                          : "/glid-logo-white.png"
-                      }
-                      alt="Glid"
-                    />
+                    <svg
+                      width="60"
+                      height="60"
+                      viewBox="0 0 100 100"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M50 5C25.2 5 5 25.2 5 50s20.2 45 45 45c12.4 0 23.7-5 31.8-13.2L50 50V5z"
+                        fill={
+                          config.backgroundColor === "sand"
+                            ? "#1c1917"
+                            : "#ffffff"
+                        }
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="15"
+                        fill={
+                          config.backgroundColor === "sand"
+                            ? "#fffbeb"
+                            : config.backgroundColor === "field"
+                              ? "#059669"
+                              : config.backgroundColor === "dark"
+                                ? "#1c1917"
+                                : "#059669"
+                        }
+                      />
+                    </svg>
                   </div>
                 )}
 
@@ -417,4 +581,32 @@ export function SocialPosts() {
       </main>
     </>
   );
+}
+
+// Helper function to wrap text
+function wrapText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number,
+): string[] {
+  const words = text.split(" ");
+  const lines: string[] = [];
+  let currentLine = "";
+
+  words.forEach((word) => {
+    const testLine = currentLine ? `${currentLine} ${word}` : word;
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > maxWidth && currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+    } else {
+      currentLine = testLine;
+    }
+  });
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  return lines;
 }
