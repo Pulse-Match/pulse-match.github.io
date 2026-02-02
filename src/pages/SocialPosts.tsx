@@ -314,6 +314,9 @@ export function SocialPosts() {
             />
           </Link>
           <div className="nav-actions">
+            <Link to="/mockup" className="btn-ghost">
+              Mockup Generator
+            </Link>
             <Link to="/brand" className="btn-ghost">
               Brand Guidelines
             </Link>
