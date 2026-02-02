@@ -60,6 +60,15 @@
   line-height: 1.5;
 }
 
+.hero-cta {
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.hero-cta .waitlist-form {
+  margin: 0;
+}
+
 .scroll-hint {
   display: flex;
   flex-direction: column;
@@ -137,21 +146,25 @@
   left: 22%;
   transition-delay: 0.1s;
 }
+
 .pin-2 {
   top: 68%;
   left: 50%;
   transition-delay: 0.25s;
 }
+
 .pin-3 {
   top: 78%;
   left: 35%;
   transition-delay: 0.4s;
 }
+
 .pin-4 {
   top: 74%;
   left: 65%;
   transition-delay: 0.55s;
 }
+
 .pin-5 {
   top: 82%;
   left: 55%;
@@ -167,9 +180,11 @@
   0% {
     transform: rotate(-45deg) scale(1);
   }
+
   50% {
     transform: rotate(-45deg) scale(1.15);
   }
+
   100% {
     transform: rotate(-45deg) scale(1);
   }
@@ -180,6 +195,7 @@
   background: var(--clay);
   box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4);
 }
+
 .pin-4 .pin-icon {
   background: var(--field-dark);
 }
@@ -226,7 +242,7 @@
   direction: rtl;
 }
 
-.story-reverse > * {
+.story-reverse>* {
   direction: ltr;
 }
 
@@ -333,6 +349,7 @@
 .score-match {
   color: var(--field);
 }
+
 .score-vibes {
   color: var(--clay);
 }
@@ -352,8 +369,8 @@
 
 .flip-card-inner {
   position: relative;
-  width: 260px;
-  height: 520px;
+  width: 300px;
+  height: 650px;
   transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
@@ -403,23 +420,28 @@
 }
 
 @keyframes floatHint {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
 }
 
 @keyframes rotateHint {
+
   0%,
   100% {
     transform: rotate(0deg);
   }
+
   25% {
     transform: rotate(-15deg);
   }
+
   75% {
     transform: rotate(15deg);
   }
@@ -427,15 +449,15 @@
 
 @media (max-width: 968px) {
   .flip-card-inner {
-    width: 240px;
-    height: 480px;
+    width: 260px;
+    height: 560px;
   }
 }
 
 @media (max-width: 640px) {
   .flip-card-inner {
-    width: 220px;
-    height: 440px;
+    width: 240px;
+    height: 520px;
   }
 }
 
@@ -535,21 +557,21 @@
   transform: translate(-50%, -50%);
   width: 800px;
   height: 800px;
-  background: radial-gradient(
-    circle,
-    rgba(5, 150, 105, 0.15) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(5, 150, 105, 0.15) 0%,
+      transparent 70%);
   pointer-events: none;
   animation: ctaPulse 4s ease-in-out infinite;
 }
 
 @keyframes ctaPulse {
+
   0%,
   100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0.5;
   }
+
   50% {
     transform: translate(-50%, -50%) scale(1.1);
     opacity: 1;
@@ -589,31 +611,46 @@
 .cta-phones {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  gap: 1.5rem;
-  margin-top: 4rem;
+  align-items: center;
+  margin-top: 6rem;
   position: relative;
   z-index: 1;
+  padding-bottom: 4rem;
 }
 
-.cta-phones .phone-cta-side {
-  opacity: 0.6;
-  transform: scale(0.9);
-  transition: all 0.3s ease;
+.cta-phones .phone-mockup {
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
 }
 
-.cta-phones .phone-cta-side:hover {
-  opacity: 0.9;
-  transform: scale(0.95);
+/* Left Phone */
+.cta-phones .phone-mockup:nth-child(1) {
+  transform: translateX(100px) rotate(-10deg) scale(0.9);
+  z-index: 5;
+  opacity: 0.8;
 }
 
+/* Middle Phone */
 .cta-phones .phone-cta-center {
+  z-index: 10;
+  transform: scale(1.1);
   opacity: 1;
-  transform: scale(1);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
-.cta-phones .phone-cta-center:hover {
-  transform: scale(1.02);
+/* Right Phone */
+.cta-phones .phone-mockup:nth-child(3) {
+  transform: translateX(-100px) rotate(10deg) scale(0.9);
+  z-index: 5;
+  opacity: 0.8;
+}
+
+/* Hover effects to fan out or highlight */
+.cta-phones .phone-mockup:hover {
+  z-index: 20;
+  transform: scale(1.15) rotate(0deg) translateX(0) !important;
+  opacity: 1;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
 }
 
 /* ================================================================
@@ -669,8 +706,15 @@
   }
 
   .cta-phones {
-    flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0;
+  }
+
+  .cta-phones .phone-mockup:nth-child(1) {
+    transform: translateX(80px) rotate(-10deg) scale(0.85);
+  }
+
+  .cta-phones .phone-mockup:nth-child(3) {
+    transform: translateX(-80px) rotate(10deg) scale(0.85);
   }
 }
 
@@ -684,16 +728,21 @@
   }
 
   .cta-phones {
-    gap: 0;
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
 
-  .cta-phones .phone-cta-side {
-    margin: 0 -20px;
-    z-index: 1;
+  .cta-phones .phone-mockup:nth-child(1) {
+    transform: translateX(45px) rotate(-10deg) scale(0.75);
+    opacity: 0.6;
+  }
+
+  .cta-phones .phone-mockup:nth-child(3) {
+    transform: translateX(-45px) rotate(10deg) scale(0.75);
+    opacity: 0.6;
   }
 
   .cta-phones .phone-cta-center {
-    z-index: 2;
+    transform: scale(0.9);
+    z-index: 10;
   }
 }
